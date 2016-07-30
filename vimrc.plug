@@ -1,0 +1,54 @@
+" install Vundle bundles
+" if filereadable(expand("~/.kvimrc.bundles"))
+"   source ~/.kvimrc.bundles
+" endif
+" Plug 'flazz/vim-colorschemes'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'morhetz/gruvbox'
+Plug 'jceb/vim-orgmode'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf', { 'dir': '/usr/local/opt/fzf' }
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-obsession'
+Plug 'FooSoft/vim-argwrap'
+Plug 'itchyny/lightline.vim'
+" Plug 'xolox/vim-misc'
+" Plug 'xolox/vim-colorscheme-switcher'
+" Plugin 'Taverius/vim-colorscheme-manager'
+Plug 'jdkanani/vim-material-theme'
+Plug 'staskjs/vim-insert-cdn'
+" Plug 'tpope/vim-projectionist'
+if count(g:bundle_groups, 'typescript')
+    Plug 'leafgarland/typescript-vim'
+    Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+    Plug 'Quramy/tsuquyomi'
+endif
+if count(g:bundle_groups, 'beta')
+    Plug 'Yggdroot/indentLine'
+    UnPlug 'nathanaelkane/vim-indent-guides'
+endif
+if count(g:bundle_groups, 'javascript')
+    Plug 'mattn/emmet-vim'
+    Plug 'marijnh/tern_for_vim'
+    Plug 'hail2u/vim-css3-syntax'
+    Plug 'groenewege/vim-less'
+    Plug 'burnettk/vim-angular'
+endif
+if count(g:bundle_groups, 'django')
+    Plug 'tweekmonster/django-plus.vim'
+endif
+
+if count(g:bundle_groups, 'csharp')
+    Plug 'OmniSharp/omnisharp-vim', { 'for': 'csharp' }
+
+endif
+" Plug 'Shougo/vimshell.vim'
+Plug 'ryanoasis/vim-devicons'
+Plug 'szw/vim-maximizer'
+Plug 'mhinz/vim-startify'
+UnPlug 'lightline.vim'
+UnPlug 'OmniSharp/omnisharp-vim'
+" UnPlug 'vim-airline'
+" UnPlug 'vim-airline-themes'
+
+" call s:unloadplug()

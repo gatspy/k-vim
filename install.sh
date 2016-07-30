@@ -14,13 +14,15 @@ lnif() {
 
 echo "Step1: backing up current vim config"
 today=`date +%Y%m%d`
-for i in $HOME/.vim $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.bundles; do [ -e $i ] && [ ! -L $i ] && mv $i $i.$today; done
-for i in $HOME/.vim $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.bundles; do [ -L $i ] && unlink $i ; done
+for i in $HOME/.vim $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.main $HOME/.vimrc.bundles $HOME/.vimrc.plug; do [ -e $i ] && [ ! -L $i ] && mv $i $i.$today; done
+for i in $HOME/.vim $HOME/.vimrc $HOME/.gvimrc $HOME/.vimrc.main $HOME/.vimrc.bundles $HOME/.vimrc.plug; do [ -L $i ] && unlink $i ; done
 
 
 echo "Step2: setting up symlinks"
 lnif $CURRENT_DIR/vimrc $HOME/.vimrc
+lnif $CURRENT_DIR/vimrc.main $HOME/.vimrc.main
 lnif $CURRENT_DIR/vimrc.bundles $HOME/.vimrc.bundles
+lnif $CURRENT_DIR/vimrc.plug $HOME/.vimrc.plug
 lnif "$CURRENT_DIR/" "$HOME/.vim"
 
 

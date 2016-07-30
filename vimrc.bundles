@@ -265,6 +265,10 @@ if count(g:bundle_groups, 'beta')
 
 endif
 
+" source $HOME/.virmc.plug
+if filereadable(expand("~/.vimrc.plug"))
+    source $HOME/.vimrc.plug
+endif
 
 " Add plugins to &runtimepath
 call plug#end()
