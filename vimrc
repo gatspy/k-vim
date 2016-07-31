@@ -80,7 +80,8 @@ if has("gui_running")
 else
     set t_Co=256
     set background=dark
-    colorscheme PaperColor
+    " colorscheme PaperColor
+    colorscheme gruvbox
 endif
 
 
