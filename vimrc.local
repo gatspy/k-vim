@@ -2,6 +2,7 @@
 " my customerized setting
 "-----------------------------------------------------------------------
 
+" vim-plug unplug 
 function! s:deregister(repo)
   let repo = substitute(a:repo, '[\/]\+$', '', '')
   let name = fnamemodify(repo, ':t:s?\.git$??')
