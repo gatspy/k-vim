@@ -50,5 +50,6 @@ UnPlug 'lightline.vim'
 UnPlug 'OmniSharp/omnisharp-vim'
 " UnPlug 'vim-airline'
 " UnPlug 'vim-airline-themes'
-
+UnPlug 'tomasr/molokai'
+" UnPlug 'altercation/vim-colors-solarized'
 " call s:unloadplug()
