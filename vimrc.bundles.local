@@ -6,6 +6,7 @@
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'morhetz/gruvbox'
 Plug 'jceb/vim-orgmode'
+Plug 'tpope/vim-speeddating'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf', { 'dir': '/usr/local/opt/fzf' }
 Plug 'junegunn/fzf.vim'
@@ -34,6 +35,10 @@ if count(g:bundle_groups, 'javascript')
     Plug 'groenewege/vim-less'
     Plug 'burnettk/vim-angular'
 endif
+
+if count(g:bundle_groups, 'angularjs')
+    Plug 'burnettk/vim-angular'
+endif
 if count(g:bundle_groups, 'django')
     Plug 'tweekmonster/django-plus.vim'
 endif
@@ -43,7 +48,7 @@ if count(g:bundle_groups, 'csharp')
 
 endif
 " Plug 'Shougo/vimshell.vim'
-Plug 'ryanoasis/vim-devicons'
+" Plug 'ryanoasis/vim-devicons'
 Plug 'szw/vim-maximizer'
 Plug 'mhinz/vim-startify'
 UnPlug 'lightline.vim'
