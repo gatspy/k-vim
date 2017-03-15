@@ -19,6 +19,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'jdkanani/vim-material-theme'
 Plug 'staskjs/vim-insert-cdn'
 " Plug 'tpope/vim-projectionist'
+Plug 'HerringtonDarkholme/vim-worksheet'
 if count(g:bundle_groups, 'typescript')
     Plug 'leafgarland/typescript-vim'
     Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -30,10 +31,11 @@ if count(g:bundle_groups, 'beta')
 endif
 if count(g:bundle_groups, 'javascript')
     Plug 'mattn/emmet-vim'
-    Plug 'marijnh/tern_for_vim'
+    Plug 'marijnh/tern_for_vim', {'do': 'npm install'}
     Plug 'hail2u/vim-css3-syntax'
     Plug 'groenewege/vim-less'
-    Plug 'burnettk/vim-angular'
+"    Plug 'burnettk/vim-angular'
+    let g:used_javascript_libs = 'jquery,underscore,backbone,angularjs,angularui,angularuirouter,react,requirejs,vue,d3'
 endif
 
 if count(g:bundle_groups, 'angularjs')

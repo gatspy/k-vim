@@ -2,7 +2,7 @@
 " my customerized setting
 "-----------------------------------------------------------------------
 
-" vim-plug unplug 
+" vim-plug unplug
 function! s:deregister(repo)
   let repo = substitute(a:repo, '[\/]\+$', '', '')
   let name = fnamemodify(repo, ':t:s?\.git$??')
@@ -111,9 +111,13 @@ endif
 "     redraw!
 " endfun
 " map <Leader>x :call RangerExplorer()<CR>
+" 切换窗口
 map <leader>ww <C-W>w
+" 横向分割窗口
 map <leader>ws <C-W>s
+" 竖向分割窗口
 map <leader>wv <C-W>v
+" 关闭窗口
 map <leader>wc <C-W>c
 
 " 设置leader等待时间
@@ -121,6 +125,7 @@ map <leader>wc <C-W>c
 " nnoremap <leader>. ;
 
 " inoremap <C-e> <C-o>$
+" 插入模式下新增上一行新增下一行
 inoremap <leader>o <ESC>o
 inoremap <leader>O <ESC>O
 " imap \nn <C-O>o
