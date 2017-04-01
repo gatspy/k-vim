@@ -19,7 +19,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'jdkanani/vim-material-theme'
 Plug 'staskjs/vim-insert-cdn'
 " Plug 'tpope/vim-projectionist'
-Plug 'HerringtonDarkholme/vim-worksheet'
+" Plug 'HerringtonDarkholme/vim-worksheet'
 if count(g:bundle_groups, 'typescript')
     Plug 'leafgarland/typescript-vim'
     Plug 'Shougo/vimproc.vim', {'do' : 'make'}
