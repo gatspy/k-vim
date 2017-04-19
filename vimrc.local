@@ -22,6 +22,12 @@ if filereadable(expand("~/.vimrc.main"))
   " endif
 endif
 
+" map space to leader
+" map <space> ,
+
+" 选中并高亮最后一次插入的内容
+nnoremap gv `[v`]
+
 " let g:PaperColor_Dark_Override = { 'background' : '#1c1c1c', 'cursorline' : '#abcdef', 'matchparen' : '#3a3a3a', 'comment' : '#5f875f' }
 " let g:PaperColor_Light_Override = { 'background' : '#abcdef', 'cursorline' : '#dfdfff', 'matchparen' : '#d6d6d6' , 'comment' : '#8e908c' }
 " let g:lightline = { 'colorscheme': 'PaperColor' }
@@ -31,16 +37,17 @@ endif
 " let g:ycm_server_python_interpreter = '/usr/local/var/pyenv/versions/py3/bin/python'
 " let g:ycm_path_to_python_interpreter = '/usr/local/var/pyenv/versions/3.5.0/bin/python'
 " let g:ycm_python_binary_path = '/usr/local/var/pyenv/versions/3.5.0/envs/py3/bin/python'
-let g:my_py_env = $PYENV_VIRTUAL_ENV
-if len(my_py_env)>0
-  let g:my_py_env .= '/bin/python'
-  let g:ycm_python_binary_path = my_py_env
+let g:py_virtual_pyenv = $PYENV_VIRTUAL_ENV
+if len(py_virtual_pyenv)>0
+  let g:py_virtual_pyenv .= '/bin/python'
+  let g:ycm_python_binary_path = py_virtual_pyenv
 else
-  let my_py_version = $PYENV_VERSION + 0
-  if my_py_version >= 3
-    let g:ycm_python_binary_path = $MY_PY_G3
+  let py_shell_version = $PYENV_VERSION + 0
+  if py_shell_version >= 3
+    let g:ycm_python_binary_path = '/usr/local/var/pyenv/shims/python'
   else
-    let g:ycm_python_binary_path = $MY_PY_G2
+    " let g:ycm_python_binary_path = $MY_PY_G2
+    let g:ycm_python_binary_path ='/usr/local/var/pyenv/shims/python'
   endif
 endif
 let g:ycm_global_ycm_extra_conf = '~/.config/ycm/.ycm_extra_conf.py'

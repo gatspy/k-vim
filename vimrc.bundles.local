@@ -3,6 +3,7 @@
 "   source ~/.kvimrc.bundles
 " endif
 " Plug 'flazz/vim-colorschemes'
+Plug 'kana/vim-textobj-python'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'morhetz/gruvbox'
 Plug 'jceb/vim-orgmode'
