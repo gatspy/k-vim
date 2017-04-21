@@ -2,46 +2,98 @@
 " if filereadable(expand("~/.kvimrc.bundles"))
 "   source ~/.kvimrc.bundles
 " endif
-" Plug 'flazz/vim-colorschemes'
-Plug 'kana/vim-textobj-python'
+Plug 'bps/vim-textobj-python'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'morhetz/gruvbox'
 Plug 'jceb/vim-orgmode'
-Plug 'tpope/vim-speeddating'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf', { 'dir': '/usr/local/opt/fzf' }
 Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-obsession'
 Plug 'FooSoft/vim-argwrap'
-Plug 'itchyny/lightline.vim'
+Plug 'flazz/vim-colorschemes'
+Plug 'ryanoasis/vim-devicons'
+Plug 'mhinz/vim-startify'
+Plug 'godlygeek/tabular'
+
+" Plug 'tpope/vim-obsession'
+" Plug 'tpope/vim-speeddating'
+" Plug 'Shougo/vimshell.vim'
+" Plug 'itchyny/lightline.vim'
 " Plug 'xolox/vim-misc'
 " Plug 'xolox/vim-colorscheme-switcher'
-" Plugin 'Taverius/vim-colorscheme-manager'
-Plug 'jdkanani/vim-material-theme'
-Plug 'staskjs/vim-insert-cdn'
+" Plug 'Taverius/vim-colorscheme-manager'
+" Plug 'jdkanani/vim-material-theme'
+" Plug 'staskjs/vim-insert-cdn'
 " Plug 'tpope/vim-projectionist'
+" Plug 'szw/vim-maximizer'
 " Plug 'HerringtonDarkholme/vim-worksheet'
+
+UnPlug 'tomasr/molokai'
+" UnPlug 'lightline.vim'
+" UnPlug 'OmniSharp/omnisharp-vim'
+" UnPlug 'vim-airline'
+" UnPlug 'vim-airline-themes'
+" UnPlug 'altercation/vim-colors-solarized'
+
+" call s:unloadplug()
+
 if count(g:bundle_groups, 'typescript')
     Plug 'leafgarland/typescript-vim'
     Plug 'Shougo/vimproc.vim', {'do' : 'make'}
     Plug 'Quramy/tsuquyomi'
+
+    " let g:typescript_indent_disable = 1
+
+    let g:typescript_compiler_binary = 'tsc'
+    let g:typescript_compiler_options = ''
+
+    let g:tsuquyomi_disable_quickfix = 1
+    let g:syntastic_typescript_checkers = ['tsuquyomi']
+
+    autocmd QuickFixCmdPost [^l]* nested cwindow
+    autocmd QuickFixCmdPost    l* nested lwindow
 endif
+
 if count(g:bundle_groups, 'beta')
     Plug 'Yggdroot/indentLine'
     UnPlug 'nathanaelkane/vim-indent-guides'
 endif
+
 if count(g:bundle_groups, 'javascript')
     Plug 'mattn/emmet-vim'
     Plug 'marijnh/tern_for_vim', {'do': 'npm install'}
-    Plug 'hail2u/vim-css3-syntax'
+    " Plug 'hail2u/vim-css3-syntax'
     Plug 'groenewege/vim-less'
-"    Plug 'burnettk/vim-angular'
+    Plug 'Quramy/vim-js-pretty-template'
+    Plug 'jason0x43/vim-js-indent'
+    " Plugin 'isRuslan/vim-es6'
+
+    let g:tern_map_keys=1
+    let tern_show_signature_in_pum = 1
+    let tern_show_argument_hints = 'on_hold'
+    autocmd FileType javascript nnoremap <leader>tt :TernDef<CR>
+    autocmd FileType javascript nnoremap <leader>tr :TernRefs<CR>
+    autocmd FileType javascript nnoremap <leader>tR :TernRename<CR>
+    " autocmd FileType javascript setlocal omnifunc=tern#Complete
+
+    autocmd FileType javascript JsPreTmpl html
+    autocmd FileType typescript JsPreTmpl html
+    autocmd FileType typescript syn clear foldBraces
+
     let g:used_javascript_libs = 'jquery,underscore,backbone,angularjs,angularui,angularuirouter,react,requirejs,vue,d3'
 endif
 
 if count(g:bundle_groups, 'angularjs')
     Plug 'burnettk/vim-angular'
+
+    let g:angular_find_ignore = ['build/', 'dist/']
 endif
+
+if count(g:bundle_groups, 'angular')
+    " Plug 'magarcia/vim-angular2-snippets'
+    Plug 'bdauria/angular-cli.vim'
+
+endif
+
 if count(g:bundle_groups, 'django')
     Plug 'tweekmonster/django-plus.vim'
 endif
@@ -50,14 +102,24 @@ if count(g:bundle_groups, 'csharp')
     Plug 'OmniSharp/omnisharp-vim', { 'for': 'csharp' }
 
 endif
-" Plug 'Shougo/vimshell.vim'
-" Plug 'ryanoasis/vim-devicons'
-Plug 'szw/vim-maximizer'
-Plug 'mhinz/vim-startify'
-UnPlug 'lightline.vim'
-UnPlug 'OmniSharp/omnisharp-vim'
-" UnPlug 'vim-airline'
-" UnPlug 'vim-airline-themes'
-UnPlug 'tomasr/molokai'
-" UnPlug 'altercation/vim-colors-solarized'
-" call s:unloadplug()
+
+if count(g:bundle_groups, 'nodejs')
+    Plug 'moll/vim-node'
+
+    autocmd User Node
+        \ if &filetype == "javascript" |
+        \   nmap <buffer> <C-w>f <Plug>NodeVSplitGotoFile |
+        \   nmap <buffer> <C-w><C-f> <Plug>NodeVSplitGotoFile |
+        \ endif
+
+endif
+
+" trailingwhitespace {{{
+    map <leader><leader><space> :FixWhitespace<cr>
+" }}}
+
+
+" argwrap {{{
+    nnoremap <silent> <leader>wa :ArgWrap<CR>
+" }}}
+

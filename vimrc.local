@@ -13,7 +13,7 @@ endfunction
 command! -nargs=1 -bar UnPlug call s:deregister(<args>)
 
 if filereadable(expand("~/.vimrc.main"))
-  let g:bundle_groups=['python', 'javascript', 'angularjs', 'markdown', 'html', 'css', 'tmux', 'beta', 'golang', 'ruby', 'typescript', 'django', 'csharp']
+  let g:bundle_groups=['nodejs', 'python', 'javascript', 'angularjs', 'angular', 'markdown', 'html', 'css', 'tmux', 'beta', 'golang', 'ruby', 'typescript', 'django', 'csharp']
   source ~/.vimrc.main
   " au FileType python set ft=python.django
   " au FileType html set ft=htmldjango.html
@@ -141,6 +141,7 @@ inoremap <leader>O <ESC>O
 noremap 0 ^
 noremap ^ 0
 
+
 " Replaces the current word (and all occurrences).
 nnoremap <Leader>rc :%s/\<<C-r><C-w>\>/
 vnoremap <Leader>rc y:%s/<C-r>"/
@@ -170,7 +171,7 @@ let g:fzf_files_options =
   \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
 
 " nnoremap <silent> <Leader><Leader> :Files<CR>
-nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
+nnoremap <silent> <expr> <Leader><Space> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
 nnoremap <silent> <Leader>C        :Colors<CR>
 nnoremap <silent> <Leader><Enter>  :Buffers<CR>
 nnoremap <silent> <Leader>ag       :Ag <C-R><C-W><CR>
@@ -258,7 +259,16 @@ let javascript_enable_domhtmlcss = 1
 " YCM的自动补全触发器只考虑当前行。 较好的补救办法是手动设置一下触发器
 let g:ycm_semantic_triggers = {
 \   'css': [ 're!^\s{4}', 're!:\s+'],
-\   'html': [ '</' ],
+\   'html': ['<', '"', '</', ' '],
+\   'cs,java,typescript,d,python,perl6,scala,vb,elixir,go' : ['.', 're!(?=[a-zA-Z]{3,4})'],
+\   'php' : ['->', '::', '(', 'use ', 'namespace ', '\'],
+\   'ruby' : ['.', '::'],
+\   'lua' : ['.', ':'],
+\   'erlang' : [':'],
+\   'perl' : ['->'],
+\   'haskell' : ['.', 're!.'],
+\   'scss,css': [ 're!^\s{2,4}', 're!:\s+' ],
+\   'vim' : ['re![_a-za-z]+[_\w]*\.'],
 \ }
 
 " Emmet
