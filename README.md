@@ -1,356 +1,699 @@
 k-vim
 =======================
+[TOC]
+# Vim 常用技巧
+## 一、移动
+### [基本移动]
 
-**Note**: 9.1版本的文档/wiki等, 处理中(原先的常见问题FAQ/插件演示和使用/自定义快捷键等)
-
-当前进度30%
-
-----------------
-
-> VERSION: 9.1
-
-> LAST_UPDATE_TIME: 2015-12-15
-
-> 本次更新: 大版本更新, 众多细节优化
-
-详细 [更新日志](https://github.com/wklken/k-vim/wiki/UPDATE_LOG)
-
-# 目标
-
-> Just a Better Vim Config. Keep it Simple.
-
-
-**PS**: 服务器端无插件`k-vim`简化版本(curl直接设置vimrc即可)[vim-for-server](https://github.com/wklken/vim-for-server)
-
-**PPS**: 一份tmux配置 [k-tmux](https://github.com/wklken/k-tmux)
-
----------------------------------
-
----------------------------------
-
-# 截图
-
-solarized主题
-
-![solarized](https://github.com/wklken/gallery/blob/master/vim/solarized.png?raw=true)
-
-molokai主题
-
-![molokai](https://github.com/wklken/gallery/blob/master/vim/molokai.png?raw=true)
-
----------------------------------
-
----------------------------------
-
-# 安装步骤
-
-### 1. clone 到本地
-
+```vim
+1.  h j k l              # 上下左右
+2.  ^ or 0               # 到行首和到行首第一个非空字符
+3.  $ or g_              # 到行尾
+4.  H or L               # 到行首和行尾
+5.  f/F or t/T           # 行内移动到指定字符或指定字符前一位
 ```
-git clone https://github.com/wklken/k-vim.git
+### [文内移动]
+
+```vim
+1.  gg or G              # 到文件头和尾
+2.  Ctrl + u/d           # 上下滚动文件< 20 line >
+3.  Ctrl + b/f           # 上一页和下一页
+4.  zt / zz / zb         # 屏幕顶部 中部 底部
+5.  :n                   # 命令模式下跳到n行
+6.  nG                   # 普通模式下跳到n行
+7.  Ctrl + e/y            # 向下/向上滚动2行 vim中配置
+```
+### [单词移动]
+
+```vim
+1.  w / W               # 下一个单词的首位 大写指非空的连续字符 < 包扩标点符号 >
+2.  e / W               # 到当前单词的尾部 大写规则同W
+2.  b / B               # 上一个单词的首位 大写规则同W
+```
+![](media/14915816176056/14916787837946.jpg)
+
+### [常用跳转]
+
+```vim
+1.  '' / ``            # 两个单引号和两个反引号 跳回来的地方(最近两个位置跳转)
+2.  '.                 # 跳到最近一次修改的地方
+3.  Ctrl + o/i         # 跳转较旧位置或者跳转较新位置
 ```
 
-
-### 2. 安装依赖包
-
-
-##### 2.1 系统依赖 # ctags, ag(the_silver_searcher)
-
+## 二、编辑
+### 编辑模式
+#### 普通编辑
+```vim
+1.  i / a              # 当前位置前/后开启编辑模式
+2.  I / A              # 行首 / 行尾开启编辑模式
+3.  o / O              # 下一行/上一行
+4. 
 ```
-# ubuntu
-sudo apt-get install ctags
-sudo apt-get install build-essential cmake python-dev  #编译YCM自动补全插件依赖
-sudo apt-get install silversearcher-ag
+#### 文本对象
+* 命令 + 范围 + 对象
 
-# centos
-sudo yum install python-devel.x86_64
-sudo yum groupinstall 'Development Tools'
-sudo rpm -Uvh http://download.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
-sudo yum install the_silver_searcher
-sudo yum install cmake
-
-# mac
-brew install ctags
-brew install the_silver_searcher
+```vim
+1.  命令               # d=删除 v=选择 c=替换 y=复制 等
+2.  范围               # i=inside  a=around
+3.  对象               # w=word  s=sentence  p=paragraph  成对的符号  t=tag标签
 ```
 
-##### 2.2 使用Python
+* 文本对象增强
 
-```
-sudo pip install pyflakes
-sudo pip install pylint
-sudo pip install pep8
-```
-
-##### 2.3 如果使用Javascript(不需要的跳过)
-
-```
-# 安装jshint和jslint,用于javascript语法检查
-# 需要nodejs支持,各个系统安装见文档 https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
-
-# ubuntu
-sudo apt-get install nodejs npm
-sudo npm install -g jslint
-sudo npm install jshint -g
-
-# mac
-brew install node
-npm install jshint -g
-npm install jslint -g
+```vim
+1.  vim-textobj-user    # 添加自定义文本对象 kana/vim-textobj-user
+2.  vim-textobj-line    # 行文本对象(l=line) dal yal cil vil
+3.  vim-textobj-entire  # 文件文本对象(e=entire file) dae yae cie
+4.  vim-textobj-indent  # 缩进文本对象(i=indent) dai yai cii - 相同缩进属于同一块
 ```
 
+> [chakan](#toc_18)
 
-### 3. 安装
+### 复制选择
 
+```vim
+1.  yyp                # 复制并粘贴到下一行
+2.  yw yt*             # 复制单词或者复制到行内指定的标签前
+3.  y$ Y               # 复制到行尾
+4.  <leader> y         # 选择后复制到系统剪贴板
+5.  <leader> sa ggVG   # 全选
+6.  < = <gv / > = >gv  # 选中行缩进后再选中
+7.  <leader> v         # 选择块
+8.  v / V / Ctrl + v   # 进入选择模式/ 选择行 / 选择块
+9.  gv `[v`]           # 选中并高亮最后一次插入的内容
 ```
-进入目录, 执行安装
-# 注意原先装过的童鞋, 重装时，不要到~/.vim下执行(这是软连接指向k-vim真是目录)，必须到k-vim原生目录执行
-# 会进入安装插件的列表，一安装是从github clone的，完全取决于网速, 之后会自动编译 YCM, 编译失败的话需要手动编译, 有问题见YCM文档
-# 如果发现有插件安装失败 可以进入vim, 执行`:PlugInstall'
 
-cd k-vim/
-sh -x install.sh
+### 搜索功能
+
+```vim
+1.  /                   # 进入搜索模式
+2.  n / N               # 向下/向上搜索
+3.  * / #               # 向下/向上搜索当前光标下的单词
+4.  <leader> /          # 去掉搜索高亮
 ```
 
-------------------------
-------------------------
+### 替换功能
 
-# 常见问题
+## 三、插件
 
-详见 [wiki](https://github.com/wklken/k-vim/wiki) 以及  [issues](https://github.com/wklken/k-vim/issues)
+### [快速导航] nerdtree
 
+```vim
+<leader>     + n      # 打开目录树导航
+## 文件操作
+o / go                # 在当前窗口打开文件/预览窗口
+s / gs                # 水平分屏打开文件  /水平预览窗口,光标在NerdTree中
+v / gv                # 垂直分屏打开文件  /垂直预览窗口,光标在NerdTree中
+t / T                 # 新建标签打开文件  /后台标签打开文件
+## 目录操作
+o / O                 # 展开关闭目录结构  /递归展开当前目录结构，包括子目录
+x / X                 # 关闭当前目录结构  /递归关闭当前目录结构，包括子目录
 
-------------------------
-------------------------
+#  移动操作
+p / P                 # 跳到上级父目录   /直接跳到跟目录
+J / K                 # 同级结构中最后一个/第一个
+Ctrl         + j/k    # 同级结构中上下移动
+m                     # 打开操作菜单，对文件或目录可增删改操作
+
+# 其他操作
+?                     # 打开或关闭面板
 
 # 插件
-
-### 选择安装插件集合
-
-编辑vimrc.bundles中
-
-```
-" more options: ['json', 'nginx', 'golang', 'ruby', 'less', 'json', ]
-let g:bundle_groups=['python', 'javascript', 'markdown', 'html', 'css', 'tmux', 'beta']
+vim-nerdtree-tabs     # 在新标签打开共享nerdtree，不需要每次重新打开nerdtree
 ```
 
-选定集合后, 使用插件管理工具进行安装/更新
+### [快速注释] nerdcommenter
 
-### 插件管理
-
-使用 [vim-plug](https://github.com/junegunn/vim-plug) 管理插件
-
-`vim-plug` 常见问题: [vim-plug faq](https://github.com/junegunn/vim-plug/wiki/faq) / [YCM timeout](https://github.com/junegunn/vim-plug/wiki/faq#youcompleteme-timeout)
-
-管理插件的命令
-
+```vim
+<leader>     + cc     # 块注释代码
+<leader>     + cu     # 取消注释
+<leader>     + cy     # 先复制，再注释，可使用p粘贴
+<leader>     + c<空格> # 添加/取消注释，智能判断
 ```
-:PlugInstall     install                      安装插件
-:PlugUpdate      install or update            更新插件
-:PlugClean       remove plugin not in list    删除本地无用插件
-:PlugUpgrade     Upgrade vim-plug itself      升级本身
-:PlugStatus      Check the status of plugins  查看插件状态
+> [vim插件: nerdcommenter[快速注释]](http://wklken.me/posts/2015/06/07/vim-plugin-nerdcommenter.html)
+
+### [代码折叠] folding
+
+```vim
+<leader>     + zz     # 全文折叠
+za                    # 光标所在区域折叠
 ```
+### [文件搜索] ctrlp
 
+```vim
+<leader> + p     # 搜索框显示当前目录及其子目录下的所有文件列表(Files)
+<leader> + f     # 搜索框显示最近打开的文件列表(MRU)
+Ctrl     + f     # 在不同功能中切换 Files / MRU / Buffers / Funky
+Ctrl     + d     # 展开菜单
 
-
-### 插件列表
-
-说明/演示/自定义快捷键等, 待处理
-
-------------------------
-------------------------
-
-
-# 自定义快捷键
-
+## 搜索框出现后，输入关键字
+Ctrl     + j/k   # 上下文件选择
+Ctrl     + x     # 水平分屏 在当前窗口打开选择的文件
+Ctrl     + v     # 垂直分屏 在当前窗口打开选择的文件
+Ctrl     + t     # 新tab中打开文件
 ```
-注意, 以下 ',' 代表<leader>
-1. 可以自己修改vimrc中配置，决定是否开启鼠标
+> [vim插件: ctrlp[文件搜索]](http://wklken.me/posts/2015/06/07/vim-plugin-ctrlp.html)
 
-set mouse-=a           " 鼠标暂不启用, 键盘党....
-set mouse=a            " 开启鼠标
+### [全局搜索] ctrlsf
 
-2. 退出vim后，内容显示在终端屏幕, 可以用于查看和复制, 如果不需要可以关掉
-    好处：误删什么的，如果以前屏幕打开，可以找回....惨痛的经历
+```vim
+\                # 光标移动到关键词下，按此键进入ctrlsf全局搜索模式
+Ctrl     + j     # 移动光标到下一个匹配
+Ctrl     + k     # 移动光标到上一个匹配
 
-set t_ti= t_te=
+# 基本操作
+t/T              # 在新tab中打开选中的文件，T焦点留在ctrlsf窗口、后台打开新标签。
+p/P              # 在预览窗口中打开选中的文件，P切换焦点到预览窗口
+O                # 打开文件并关闭ctrlsf窗口
+M                # 在水平和垂直之间切换ctrlsf窗口
+q                # 退出ctrlsf窗口
 
-3. 可以自己修改vimrc决定是否使用方向键进行上下左右移动，默认关闭，强迫自己用 hjkl，可以注解
-hjkl  上下左右
-
-map <Left> <Nop>
-map <Right> <Nop>
-map <Up> <Nop>
-map <Down> <Nop>
-
-4. 上排F功能键
-
-F1 废弃这个键,防止调出系统帮助
-F2 set nu/nonu,行号开关，用于鼠标复制代码用
-F3 set list/nolist,显示可打印字符开关
-F4 set wrap/nowrap,换行开关
-F5 set paste/nopaste,粘贴模式paste_mode开关,用于有格式的代码粘贴
-F6 syntax on/off,语法开关，关闭语法可以加快大文件的展示
-
-F9 tagbar
-F10 运行当前文件(quickrun)
-
-5. 分屏移动
-
-ctrl + j/k/h/l   进行上下左右窗口跳转,不需要ctrl+w+jkhl
-
-6. 搜索
-<space> 空格，进入搜索状态
-/       同上
-,/      去除匹配高亮
-
-(交换了#/* 号键功能, 更符合直觉, 其实是离左手更近)
-#       正向查找光标下的词
-*       反向查找光标下的词
-
-优化搜索保证结果在屏幕中间
-
-7. tab操作
-ctrl+t 新建一个tab
-
-(hjkl)
-,th    切第1个tab
-,tl    切最后一个tab
-,tj    下一个tab
-,tk    前一个tab
-
-,tn    下一个tab(next)
-,tp    前一个tab(previous)
-
-,td    关闭tab
-,te    tabedit
-,tm    tabm
-
-,1     切第1个tab
-,2     切第2个tab
-...
-,9     切第9个tab
-,0     切最后一个tab
-
-,tt 最近使用两个tab之间切换
-(可修改配置位 ctrl+o,  但是ctrl+o/i为系统光标相关快捷键, 故不采用)
-
-8. buffer操作(不建议, 建议使用ctrlspace插件来操作)
-[b    前一个buffer
-]b    后一个buffer
-<-    前一个buffer
-->    后一个buffer
-
-
-9. 按键修改
-Y         =y$   复制到行尾
-U         =Ctrl-r
-,sa       select all,全选
-,v        选中段落
-kj        代替<Esc>，不用到角落去按esc了
-
-,q     :q，退出vim
-,w     :w, 保存当前文件
-
-ctrl+n    相对/绝对行号切换
-<enter>   normal模式下回车选中当前项
-
-更多细节优化:
-    1. j/k 对于换行展示移动更友好
-    2. HL 修改成 ^$, 更方便在同行移动
-    3. ; 修改成 : ，一键进入命令行模式，不需要按shift
-    4. 命令行模式 ctrl+a/e 到开始结尾
-    5. <和> 代码缩进后自动再次选中, 方便连续多次缩进, esc退出
-    6. 对py文件，保存自动去行尾空白，打开自动加行首代码
-    7. 'w!!'强制保存, 即使readonly
-    8. 去掉错误输入提示
-    9. 交换\`和', '能跳转到准确行列位置
-    10. python/ruby 等, 保存时自动去行尾空白
-    11. 统一所有分屏打开的操作位v/s[nerdtree/ctrlspace] (特殊ctrlp ctrl+v/x)
-    12. ',zz' 代码折叠toggle
-    13. python使用"""添加docstring会自动补全三引号
-    14. Python使用#进行注释时, 自动缩进
+# 依赖ag
 ```
 
-------------------------
-------------------------
+### [语法检查] syntastic
 
-### UPDATE_LOG
+```vim
+<leader>  + s      # 打开或关闭语法错误检查预览窗
+Ctrl      + j      # 移动到预览窗 
+j or k CR          # 通过移动键选择错误提示然后回车，可定位到文件中的相应行
+```
+> [vim插件: syntastic[语法检查]](http://wklken.me/posts/2015/06/07/vim-plugin-syntastic.html)
 
-version 9.1
+### [快速跳转] easymotion
+
+```vim
+<leader><leader> + w/b    # 前后跳转
+<leader><leader> + s      # 搜索跳转
+<leader><leader> + j/k    # 上下行级跳转，比w/b力度粗
+<leader><leader> + h/l    # 行内跳转
+<leader><leader> + .      # 重复上一次操作
+```
+> [vim插件: easymotion[快速跳转]](http://wklken.me/posts/2015/06/07/vim-plugin-easymotion.html#5)
+
+### [多光标操作] multiple-cursors
+
+```vim
+Ctrl     + m     # 选择光标下的选定词
+Ctrl     + p     # 放弃一个，回到上一个
+Ctrl     + x     # 跳过当前选中，选中下一个
+esc              # 退出操作
+
+# 选中以后可以增删替换 a/c/x等
+```
+> [vim插件: multiple-cursors[多光标操作]](http://wklken.me/posts/2015/06/07/vim-plugin-multiplecursors.html)
+
+### [快速标记跳转] vim-signature
+
+```vim
+m [a-zA-z]       # 添加标记
+' [a-zA-z]       # 跳转到某标记
+m ,              # 跳转到下个可用标记
+m .              # 如果当前行没有标记，添加标记。有标记删除标记
+m -              # 删除当前行的所有标记
+m [space]        # 删除当前文件中所有标记
 
 ```
-插件部分:
-1. 使用 'junegunn/vim-plug' 替代 'VundleVim/Vundle.vim' 来管理插件, 安装/更新速度更快
-2. 支持自定义插件集合, 可以配置自己需要安装的插件
-3. 去除tomorrow主题插件 'chriskempson/vim-tomorrow-theme'
-4. Javascript插件, 使用 'othree/javascript-libraries-syntax.vim' 替代 'nono/jquery.vim',
-5. Javascript插件, 使用 'othree/yajs.vim' 替代 'jelera/vim-javascript-syntax'
-6. 去除 minibufferexpl 所有配置(ctrlspace替代)
-7. 去除 taglist 所有配置(tagbar和ctrl-funky替代)
-8. Python插件, 增加 'hynek/vim-python-pep8-indent'
-9. Python插件, 去除 'kevinw/pyflakes-vim'
-10. Go插件, 使用 'fatih/vim-go' 替代 'Blackrush/vim-gocode'
-11. 快速移动, 增加插件 'unblevable/quick-scope', 按f/F/t/T时触发, 行内快速移动, 与 easymotion 互补
-12. (bundle_groups配置了tmux)tmux插件 'christoomey/vim-tmux-navigator'
-13. (bundle_groups配置了json)json插件 'elzr/vim-json'
+> [vim-signature[快速标记跳转]](http://www.wklken.me/posts/2015/06/07/vim-plugin-signature.html)
 
-细节:
-1. 增加 leader+w 保存文件
-2. YCM 开启语法关键字补全 'let g:ycm_seed_identifiers_with_syntax=1'
-3. 插件 'terryma/vim-expand-region', 增加自定义每次加减的区域配置
-4. 解决在insert mode粘贴代码缩进错乱问题(以前需要:set paste . 即k-vim中F5快捷键, 现在不需要了)
+### [符号自动补全] delimitmate + closetag
 
-其他:
-1. UPDATE_LOG文件迁移到github wiki
+```vim
+### 被动触发 < " [ { ' 等符号
+shift    +tab   # 跳转到补全符号的后面同时保留插入模式
+
+### 成对标签补全 closetag
+后一标签需要在不同行并需要输入光标位和上一行对齐以后才能补全
+```
+> [vim插件: delimitmate[符号自动补全]](http://www.wklken.me/posts/2015/06/07/vim-plugin-delimitmate.html)
+
+### [快速对齐] easy-align
+
+```vim
+# 默认左对齐
+<leader>a=              # 对齐等号表达式
+<leader>a:              # 对比冒号表达式 json map等
+<leader>a<space>        # 首个空格对齐
+<leader>a2<space>       # 第二个空格对齐
+<leader>a-<space>       # 倒数第一个空格对齐
+<leader>a-2<space>      # 倒数第二个空格对齐
+<leader>a*<space>       # 所有空格依次对齐
+
+#  步骤，以等号对齐为例
+1.  shift-v 进入行选择模式
+2.  选择多行 j/k
+3.  <leader> a
+4.  =
+```
+> [vim插件: easy-align[快速对齐]](http://www.wklken.me/posts/2015/06/07/vim-plugin-easyalign.html)
+
+### [文本对齐] tabular
+
+```vim
+# 命令
+:Tab /=                 # 等号对齐
+:Tab/:                  # 冒号对齐
+:Tab /:\zs              # 冒号对齐，不包括冒号
+:Tab/|                  # 表格样式对齐
+
+# 映射
+let mapleader=','
+if exists(":Tabularize")
+    nmap <Leader>a= :Tabularize /=<CR>
+    vmap <Leader>a= :Tabularize /=<CR>
+    nmap <Leader>a: :Tabularize /:\zs<CR>
+    vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
+
+```
+>[Aligning text with Tabular.vim](http://vimcasts.org/episodes/aligning-text-with-tabular-vim/)
+
+### [行尾空格处理] trailing-whitespace
+
+```vim
+<leader>     + space      # 一键去除所有行尾空格
+```
+> [vim插件: trailing-whitespace[行尾空格处理]](http://www.wklken.me/posts/2015/06/07/vim-plugin-trailing-whitespace.html)
+
+### [快速执行] quickrun
+
+```vim
+<leader>     + r <CR>     # 等同F10 执行代码
 ```
 
-### Contributors
+### [参数格式] vim-argwrap
 
-thx a lot. 可以给我提pull request:)
+```vim
+<leader> a      #  格式化参数格式
+```
+![](media/14915816176056/14926166883484.jpg)
+> [vim-argwrap](https://github.com/FooSoft/vim-argwrap)
 
-查看详情 [git-contributors](https://github.com/wklken/k-vim/graphs/contributors)
+## 四、语言
 
-### Inspire
+### 智能感知
+#### [代码完成] YouCompleteMe
+```vim
+###  use
+<leader>  gd/jd  # 跳到定义处
+Ctrl   + Space   # 主动触发补全，默认输入两个字符以上自动补全
+Ctrl   + j/k n/p # 补全窗口上下选择
 
-1. vimrc文件布局`vimrc+vimrc.bundles`配置方式参考 [maximum-awesome](https://github.com/square/maximum-awesome)
+###  install
+pyenv shell system
+python install.py --clang-completer
+```
 
-2. install.sh 参考`spf13-vim` 的`bootstrap.sh` [spf13-vim](https://github.com/spf13/spf13-vim)
+#### [代码片段] Ultisnips + vim-snippets
 
-2. 插件管理使用[Vundle](https://github.com/gmarik/Vundle.vim)
+```vim
+Ctrl   + j/k n/p # 补全窗口上下选择
+Tab              # 完成代码片段插入
 
-3. 自动补全 [YCM](https://github.com/Valloric/YouCompleteMe)
+### 命令模式查看UltiSnips加载的片段
+:execute g:_uspy 'print(UltiSnips_Manager.get_buffer_filetypes())'
 
-4. 插件挑选 [VimAwesome](http://vimawesome.com/)
+### ultisnips(代码片段补全工具) 
 
-### Resources
-
-[链接](http://www.wklken.me/posts/2014/10/03/vim-resources.html)
-
-### Donation
-
-如果你认为对你有所帮助, You can Buy me a coffee:)
-
-
-![donation](https://raw.githubusercontent.com/wklken/gallery/master/donation/donation_w.jpg)
+### vim-snippets(常用代码片段)
+```
 
 
-支付宝
+### 前端工具
+#### [Emmet]
 
-![donation](https://raw.githubusercontent.com/wklken/gallery/master/donation/donation.png)
+```vim
+# vim-emmet
+html:5 / ! +   ctrl-e ,  # 补全html结构
 
-------------------------
-------------------------
+# 命令模式 查看绑定的前缀键
+:echo user_emmet_leader_key
+```
 
-The End!
+#### [JavaScript]
 
-wklken (凌岳/pythoner/vim党预备党员)
+```vim
+##  插件
+othree/yajs.vim | pangloss/vim-javascript
+othree/javascript-libraries-syntax.vim
+marijnh/tern_for_vim
+Quramy/vim-js-pretty-template
 
-Email: wklken@yeah.net
+## tern命令
+<leader>td          # 跳转到定义
+<leader>tr          # 查找引用
+<leader>tR          # 重命名
 
-Github: https://github.com/wklken
+## JsPreTmpl命令 模板
+:JsPreTmpl html
 
-Blog: [http://www.wklken.me](http://www.wklken.me)
+## jshint nodejs X not defined
+1. 定义global 缺少的都写在里面
+/*global require, module,  __dirname, console, process */
 
-2013-06-11 于深圳
+2. 定义node为true
+/*jslint node: true, mocha:true */
+"use strict";
+
+```
+>[Setting up Vim for JavaScript development](https://davidosomething.com/blog/vim-for-javascript/)
+>[How to use jslint in node.js projects properly](https://coderwall.com/p/-h1h1w/how-to-use-jslint-in-node-js-projects-properly)
+
+#### [NodeJS]
+
+```vim
+## 插件
+moll/vim-node
+
+## 操作
+gf                  # 跳转到文件定义
+[I                  # 查找引用
+:Nedit ./mname      # 编辑当前模块或者mname指示的模块
+Ctrl+w Ctrl+f       # 垂直窗口打开光标下的文件 Ctrl+w+f也是
+
+# 配置
+autocmd User Node
+        \ if &filetype == "javascript" |
+        \   nmap <buffer> <C-w>f <Plug>NodeVSplitGotoFile |
+        \   nmap <buffer> <C-w><C-f> <Plug>NodeVSplitGotoFile |
+        \ endif
+
+
+```
+
+#### [TypeScript]
+
+```vim
+##  插件
+leafgarland/typescript-vim
+Quramy/tsuquyomi
+Shougo/vimproc.vim
+
+## Tsquyomi命令
+:TsuImport          # 自动导入文件<自动import>
+:TsuDefinition      # 跳转到定义
+:TsuReferences      # 显示引用
+
+## Angular / ng
+
+```
+> [Vim Configuration for TypeScript and Angular2 Development](http://www.blog.bdauria.com/?p=692)
+
+#### [AngularJS]
+
+```vim
+##  插件 angularjs
+burnettk/vim-angular
+gf                  # 跳转到定义<服务、控制器等>
+<leader>rs          # run spec
+<leader>rb          # run spec block
+```
+
+## 五、其他
+### 性能测试
+
+```shell
+vim --startuptime vim.log
+vim -u NONE -N --startuptime /dev/stdout -c quit
+```
+
+### JSHint模板
+
+```json
+{
+
+  "es5": true,
+  "node": true,
+
+  /**
+   * 是否阻止位运算符的使用
+   *
+   * 有时候为了快速取整或判断，会使用一些位运算符，所以此项设置为 false
+   */
+  "bitwise": false,
+
+  /**
+   * 是否要求变量都使用驼峰命名
+   *
+   * 默认开启
+   */
+  "camelcase": false,
+
+  /**
+   * 是否要求 for/while/if 带花括号
+   *
+   * 我们建议多行的时候使用花括号，单行强制写在一行。
+   * 因为这个选项不管单行多行，所以默认关闭
+   */
+  "curly": false,
+
+  /**
+   * 是否强制使用严格等号
+   *
+   * 有时候工程师需要判断 null，所以默认不严格要求
+   */
+  "eqeqeq": false,
+
+  /**
+   * for-in 语句是否要求过滤原型链上的对象
+   *
+   * 默认打开
+   */
+  "forin": true,
+
+  /**
+   * 是要求否以 strict 模式检查
+   *
+   * 该选项要求文件有 "use strict;" 字符串，而且很多限制有点残酷。不全局要求，需要的模块自行开启
+   */
+  "strict": false,
+
+  /**
+   * 是否阻止修改或拓展基本对象（Array、Date 等）的原型链
+   *
+   * 原型链污染比较危险，默认打开
+   */
+  "freeze": true,
+
+  /**
+   * 是否要求自执行的方法使用括号括起
+   *
+   * 默认打开
+   */
+  "immed": true,
+
+  /**
+   * 指定缩进大小为 4 个空格
+   */
+  "indent": 4,
+
+  /**
+   * 要求变量在使用前声明
+   */
+  "latedef": true,
+
+  /**
+   * 要求构造函数大写
+   */
+  "newcap": true,
+
+  /**
+   * 不允许使用 arguments.callee 和 arguments.caller
+   */
+  "noarg": true,
+
+  /**
+   * 不允许空的代码快，默认关闭
+   */
+  "noempty": false,
+
+  /**
+   * 不允许使用 "non-breaking whitespace"。
+   *
+   * 这些字符在非 UTF8 页面会导致代码失效
+   */
+  "nonbsp": true,
+
+  /**
+   * 阻止直接使用 new 调用构造函数的语句（不赋值对象）
+   *
+   * // OK
+   * var a = new Animal();
+   *
+   * // Warn
+   * new Animal();
+   */
+  "nonew": true,
+
+  /**
+   * 不允许使用 ++ 和 -- 运算符
+   *
+   * 默认关闭
+   */
+  "plusplus": false,
+
+  /**
+   * 字符串引号
+   *
+   * 默认要求使用单引号
+   */
+  //"quotmark": "single",
+
+  /**
+   * 提示未定义的变量
+   *
+   * 未定义的变量会容易造成全局变量，该项开启
+   */
+  "undef": true,
+
+  /**
+   * 字符串不允许以空格加斜杠的形式来换行
+   *
+   * // OK
+   * var str = 'Hello ' +
+   *     'world';
+   *
+   * // No Way
+   * var str = 'Hello \
+   *     world';
+   */
+  "trailing": true,
+
+  /**
+   * 对代码中使用的 debugger 语句默认给出警告
+   */
+  "debug": false,
+
+  /**
+   * 变量只能在函数域上定义，在代码块上定义的变量给出警告
+   *
+   * // OK
+   * function test() {
+   *    var x;
+   *
+   *    if (true) {
+   *        x = 0;
+   *    }
+   *
+   *    x += 1;
+   * }
+   *
+   * // No Way
+   * function test() {
+   *
+   *    if (true) {
+   *        var x = 0;
+   *    }
+   *
+   *    x += 1;
+   * }
+   */
+  "funcscope": true,
+
+  /**
+   * 写字面量时，逗号放前面给出警告，例如：
+   *
+   * var obj = {
+   *     name: 'Anton'
+   *   , handle: 'valueOf'
+   *   , role: 'SW Engineer'
+   * }
+   */
+  "laxcomma": false,
+
+  /**
+   * 允许在循环语句中产生函数
+   */
+  "loopfunc": true,
+
+  /**
+   * 每个函数只允许使用一个 var 定义变量
+   *
+   * 默认关闭
+   */
+  "onevar": false,
+
+  /**
+   * 提示未使用的变量
+   *
+   * 默认开启
+   */
+  "unused": true
+
+}
+
+```
+
+### ESLint模板
+
+```json
+{
+  "globals": {
+    "$": true                                 //zepto
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    //警告
+    // "quotes": [1, "single"],                  //建议使用单引号
+    // "no-inner-declarations": [1, "both"],     //不建议在{}代码块内部声明变量或函数
+    "no-extra-boolean-cast": 1,               //多余的感叹号转布尔型
+    "no-extra-semi": 1,                       //多余的分号
+    "no-extra-parens": 1,                     //多余的括号
+    "no-empty": 1,                            //空代码块
+    "no-use-before-define": [1, "nofunc"],    //使用前未定义
+    "complexity": [1, 10],                    //圈复杂度大于10 警告
+
+    //常见错误
+    "comma-dangle": [2, "never"],             //定义数组或对象最后多余的逗号
+    "no-debugger": 2,                         //debugger 调试代码未删除
+    "no-constant-condition": 2,               //常量作为条件
+    "no-dupe-args": 2,                        //参数重复
+    "no-dupe-keys": 2,                        //对象属性重复
+    "no-duplicate-case": 2,                   //case重复
+    "no-empty-character-class": 2,            //正则无法匹配任何值
+    "no-invalid-regexp": 2,                   //无效的正则
+    "no-func-assign": 2,                      //函数被赋值
+    "valid-typeof": 2,                        //无效的类型判断
+    "no-unreachable": 2,                      //不可能执行到的代码
+    "no-unexpected-multiline": 2,             //行尾缺少分号可能导致一些意外情况
+    "no-sparse-arrays": 2,                    //数组中多出逗号
+    "no-shadow-restricted-names": 2,          //关键词与命名冲突
+    "no-undef": 2,                            //变量未定义
+    "no-unused-vars": 2,                      //变量定义后未使用
+    "no-cond-assign": 2,                      //条件语句中禁止赋值操作
+    "no-native-reassign": 2,                  //禁止覆盖原生对象
+
+    //代码风格优化
+    "no-else-return": 1,                      //在else代码块中return，else是多余的
+    "no-multi-spaces": 1,                     //不允许多个空格
+    "key-spacing": [1, {"beforeColon": false, "afterColon": true}],//object直接量建议写法 : 后一个空格签名不留空格
+    "block-scoped-var": 2,                    //变量定义后未使用
+    "consistent-return": 2,                   //函数返回值可能是不同类型
+    "accessor-pairs": 2,                      //object getter/setter方法需要成对出现
+    "dot-location": [2, "property"],          //换行调用对象方法  点操作符应写在行首
+    "no-lone-blocks": 2,                      //多余的{}嵌套
+    "no-empty-label": 2,                      //无用的标记
+    "no-extend-native": 2,                    //禁止扩展原生对象
+    "no-floating-decimal": 2,                 //浮点型需要写全 禁止.1 或 2.写法
+    "no-loop-func": 2,                        //禁止在循环体中定义函数
+    "no-new-func": 2,                         //禁止new Function(...) 写法
+    "no-self-compare": 2,                     //不允与自己比较作为条件
+    "no-sequences": 2,                        //禁止可能导致结果不明确的逗号操作符
+    "no-throw-literal": 2,                    //禁止抛出一个直接量 应是Error对象
+    "no-return-assign": [2, "always"],        //不允return时有赋值操作
+    "no-redeclare": [2, {"builtinGlobals": true}],//不允许重复声明
+    "no-unused-expressions": [2, {"allowShortCircuit": true, "allowTernary": true}],//未使用的表达式
+    "no-useless-call": 2,                     //无意义的函数call或apply
+    "no-useless-concat": 2,                   //无意义的string concat
+    "no-void": 2,                             //禁用void
+    "no-with": 2,                             //禁用with
+    "no-warning-comments": [2, { "terms": ["todo", "fixme", "any other term"], "location": "anywhere" }],//标记未写注释
+    "curly": 2                                //if、else、while、for代码块用{}包围
+  }
+}
+```
+
+
