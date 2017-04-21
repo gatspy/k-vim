@@ -1,0 +1,64 @@
+snippet ng_class "Angular [class] binding"
+[class]="${1:expression}"
+endsnippet
+
+snippet ng_style "Angular [style] binding"
+[style.${1:property}]="${2:expression}"
+endsnippet
+
+snippet ng_ngClass "Angular ngClass"
+[ngClass]="{${1:cssClass}: ${2:expression}}"
+endsnippet
+
+snippet ng_ngFor "Angular *ngFor"
+*ngFor="let ${1:item} of ${2:list}"
+endsnippet
+
+snippet ng_ngForAsync "Angular *ngForAsync"
+*ngFor="let ${1:item} of ${2:stream} | async as ${3:list}"
+endsnippet
+
+snippet ng_ngIf "Angular *ngIf"
+*ngIf="${1:expression}"
+endsnippet
+
+snippet ng_ngIfElse "Angular *ngIfElse"
+*ngIf="${1:expression};else ${2:templateName}"
+endsnippet
+
+snippet ng_ngModel "Angular ngModel"
+[(ngModel)]="${1:binding}"
+endsnippet
+
+snippet ng_routerLink "Angular routerLink"
+[routerLink]="['/${1:routePath}']"$0
+endsnippet
+
+snippet ng_routerLink_param "Angular routerLink with a route parameter"
+[routerLink]="['${1:routePath}', ${2:routeParameterValue}$0]"
+endsnippet
+
+snippet ng_select "Angular select"
+<select [(ngModel)]="${1:model}">
+  <option *ngFor="let ${2:item} of ${3:list}" [value]="$2">{{$2}</option>
+</select>
+endsnippet
+
+snippet ng_ngStyle "Angular ngStyle"
+[ngStyle]={${1:style}: ${2:expression}}"
+endsnippet
+
+snippet ng_ngSwitch "Angular ngSwitch"
+<div [ngSwitch]="${1:conditionExpression}">
+  <div *ngSwitchCase="${2:expression}">${3:output}</div>
+  <div *ngSwitchDefault>${4:output2}</div>
+</div>
+endsnippet
+
+snippet ng_prej "Angular pre debug | json"
+<pre>{{$1 | json}}</pre>$2
+endsnippet
+
+snippet ng_preja "Angular pre debug | async | json"
+<pre>{{$1 | async | json}}</pre>$2
+endsnippet

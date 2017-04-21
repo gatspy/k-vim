@@ -1,0 +1,262 @@
+snippet ng_component "Angular component"
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  moduleId: module.id,
+  selector: '${1:selector}',
+  templateUrl: '${2:name}.component.html'
+})
+export class ${3:ComponentName}Component implements OnInit {
+  constructor() { }
+
+  ngOnInit() { }
+  ${0}
+}
+endsnippet
+
+snippet ng_service "Angular service"
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class ${1:ServiceName}Service {
+  ${0}
+  constructor() { }
+
+}
+endsnippet
+
+snippet ng_pipe "Angular pipe"
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: '${1:name}'
+})
+
+export class ${2:PipeName}Pipe implements PipeTransform {
+  transform(value: any, args: any[]): any {
+    ${0}
+  }
+}
+endsnippet
+
+snippet ng_routes "Angular routes"
+@Routes([
+  { path: '/${1:path}', component: ${2:ComponentName}Component }${0}
+])
+endsnippet
+
+snippet ng_route_path "Angular eager route path"
+{ path: '/${1:path}', component: ${2:ComponentName}Component }${0}
+endsnippet
+
+snippet ng_route_path_default "Angular default route path"
+{ path: '', pathMatch: 'full', redirectTo: '${1:dashboard}' }$0
+endsnippet
+
+snippet ng_route_path_lazy "Angular lazy route path"
+{ path: '${path}', loadChildren: '${1:lazy-path}#${2:lazy-module}' }$0
+endsnippet
+
+snippet ng_route_path_404 "Angular 404 route path"
+{ path: '**', pathMatch: 'full', component: ${1:PathNotFoundComponent} }$0
+endsnippet
+
+snippet ng_http_get "Angular Http.get"
+return this.http.get('${1:url}')
+  .map((res: Response) => res.json()${0});
+endsnippet
+
+snippet ng_subscribe "Angular observable subscribe"
+this.${1:service}.${2:function}
+  .subscribe(${3:arg} => this.${4:property} = ${5:arg});
+${0}
+endsnippet
+
+snippet ng_bootstrap "Angular bootstrap"
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';;
+// import { enableProdMode } from '@angular/core';
+
+// enableProdMode(); // Uncomment for production"
+import { ${1:App}Module } from './${2:app}.Module';
+
+platformBrowserDynamic().bootstrapModule(${3:App}Module);
+${0}
+endsnippet
+
+snippet ng_component_root "Angular App root component"
+import { Component } from '@angular/core';
+
+@Component({
+  moduleId: module.id,
+  selector: '${1:prefix-app}',
+  template: `
+    <router-outlet></router-outlet>
+    `
+
+})
+export class ${2:App}Component {}
+${0}
+endsnippet
+
+snippet ng_guard_can_activate "Angular CanActivate guard"
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
+
+@Injectable()
+export class ${1:Name}Guard implements CanActivate {
+  constructor() { }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    return true;$0
+  }
+}
+endsnippet
+
+snippet ng_guard_can_activate_child "Angular CanActivateChild guard"
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivateChild, RouterStateSnapshot } from '@angular/router';
+
+@Injectable()
+export class ${1:Name}Guard implements CanActivateChild {
+  constructor() { }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    return true;$0
+  }
+}
+endsnippet
+
+snippet ng_guard_can_deactivate "Angular CanDeactivate guard"
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanDeactivate, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+
+import { ${1:ComponentName}Component } from './${2:filename}.component';
+
+// Consider using this interface for all CanDeactivate guards,
+// and have your components implement this interface, too.
+//
+//   e.g. export class CanDeactivateGuard implements CanDeactivate<CanComponentDeactivate> {
+//
+// export interface CanComponentDeactivate {
+// canDeactivate: () => any;
+// }
+
+@Injectable()
+export class ${3:Name}Guard implements CanDeactivate<$1Component> {
+  canDeactivate(
+    component: $1Component,
+    currentRoute: ActivatedRouteSnapshot,
+    currentState: RouterStateSnapshot,
+  ): Observable<boolean>|Promise<boolean>|boolean {
+    return false;$0
+  }
+}
+endsnippet
+
+snippet ng_guard_can_load "Angular CanLoad guard"
+import { Injectable } from '@angular/core';
+import { CanLoad, Route } from '@angular/router';
+
+@Injectable()
+export class ${1:Name}Guard implements CanLoad {
+  constructor() { }
+
+  canLoad(route: Route) {
+    return true;$0
+  }
+}
+endsnippet
+
+snippet ng_directive "Angular directive"
+import { Directive } from '@angular/core';
+
+@Directive({ selector: '[${1:selector-name}]' })
+export class ${2:Name}Directive {
+  constructor() { }
+}
+endsnippet
+
+snippet ng_service_http "Angular service with Http"
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
+@Injectable()
+export class ${1:ServiceName}Service {
+  constructor(private http: Http) { }
+  $0
+}
+endsnippet
+
+snippet ng_module "Angular Module"
+import { NgModule } from '@angular/core';
+
+import { ${1:Name}Component } from './${2:name}.component';
+
+@NgModule({
+  imports: [],
+  exports: [],
+  declarations: [$1Component],
+  providers: [],
+})
+export class $1Module { }
+$0
+endsnippet
+
+snippet ng_ctor_skip_self "Angular Module SkipSelf constructor"
+constructor( @Optional() @SkipSelf() parentModule: ${1:ModuleName} {
+  if (parentModule) {
+    const msg = `${2:ModuleName} has already been loaded.
+      Import ${3:ModuleName} once, only, in the root AppModule.`;
+    throw new Error(msg);
+  }
+}
+endsnippet
+
+snippet ng_module_root "Angular Root Module"
+import { NgModule } from '@angular/core';
+import { BrowserModule  } from '@angular/platform-browser';
+import { HttpModule } from '@angular/http';
+
+import { ${1:App}Component } from './app.component';
+import { AppRoutingModule } from './app.routing'; //TODO: Create app.routing
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    HttpModule,
+
+    AppRoutingModule,
+  ],
+  declarations: [$1Component],
+  providers: [/* TODO: Providers go here */],
+  bootstrap: [$1Component],
+})
+export class $1Module { }
+$0
+endsnippet
+
+snippet ng_module_routing "Angular routing module file (forChild)"
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+import { ${Name}Component } from './${name}.component';
+
+const routes: Routes = [
+  { path: '${path}', component: ${Name}Component },
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class ${Name}RoutingModule { }
+export const routedComponents = [${Name}Component];
+endsnippet
+
+snippet ng_output_event "Angular @Output event and emitter"
+@Output() ${1:eventName}: EventEmitter<${2:eventType}> = new EventEmitter<$2>();$0
+endsnippet
