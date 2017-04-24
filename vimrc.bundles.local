@@ -80,6 +80,13 @@ if count(g:bundle_groups, 'javascript')
     autocmd FileType typescript syn clear foldBraces
 
     let g:used_javascript_libs = 'jquery,underscore,backbone,angularjs,angularui,angularuirouter,react,requirejs,vue,d3'
+
+    " let NERDTreeIgnore = ['\.js$' , '\.js.map$', '^node_modules$[[dir]]']
+    " let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|bower_components'
+    " let g:ctrlp_custom_ignore = {
+        " \ 'dir':  'node_modules\|DS_Store\|bower_components',
+        " \ }
+
 endif
 
 if count(g:bundle_groups, 'angularjs')
