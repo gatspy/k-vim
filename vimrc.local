@@ -141,6 +141,20 @@ inoremap <leader>O <ESC>O
 noremap 0 ^
 noremap ^ 0
 
+" move the current line below
+nnoremap <c-down> ddp
+
+" move the current line above
+" nnoremap <c-s-j> ddkP
+noremap <c-up> :call feedkeys( line('.')==1 ? '' : 'ddkP' )<CR>
+
+" insert mode uppercase the current word
+"  <esc> : go to normal mode
+"  v   : visual mode
+"  iw    : select the current word
+"  U   : uppercase selection
+"  i   : back to insert mode
+inoremap <c-u> <esc>viwUi
 
 " Replaces the current word (and all occurrences).
 nnoremap <Leader>rc :%s/\<<C-r><C-w>\>/
@@ -180,9 +194,24 @@ let g:fzf_files_options =
 nnoremap <silent> <expr> <Leader><Space> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
 nnoremap <silent> <Leader>C        :Colors<CR>
 nnoremap <silent> <Leader><Enter>  :Buffers<CR>
-nnoremap <silent> <Leader>ag       :Ag <C-R><C-W><CR>
-nnoremap <silent> <Leader>AG       :Ag <C-R><C-A><CR>
-nnoremap <silent> <Leader>`        :Marks<CR>
+nnoremap <silent> <leader>B :Buffers<CR>
+nnoremap <silent> <leader>W :Windows<CR>
+nnoremap <silent> <leader>L :BLines<CR>
+nnoremap <silent> <leader>t :BTags<CR>
+nnoremap <silent> <leader>T :Tags<CR>
+nnoremap <silent> <leader>H :History<CR>
+nnoremap <silent> <Leader>M :Marks<CR>
+
+nnoremap <silent> <leader>gl :Commits<CR>
+nnoremap <silent> <leader>ga :BCommits<CR>
+nnoremap <silent> <leader>ft :Filetypes<CR>
+
+" nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
+" nnoremap <silent> <leader>. :AgIn
+nnoremap <silent> <Leader>ag  :Ag <C-R><C-W><CR>
+nnoremap <silent> <Leader>AG  :Ag <C-R><C-A><CR>
+
+
 " nnoremap <silent> q: :History:<CR>
 " nnoremap <silent> q/ :History/<CR>
 
