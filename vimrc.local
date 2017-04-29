@@ -20,10 +20,15 @@ if filereadable(expand("~/.vimrc.main"))
   " if filereadable(expand("~/.vimrc.plug"))
   "   source ~/.vimrc.plug
   " endif
+
+  " set NerdTreeIgnore
+  let g:NERDTreeIgnore+=['\~$', 'node_modules', 'bower_components']
+
 endif
 
 " map space to leader
 " map <space> ,
+nmap <leader>d :bprevious<CR>:bdelete #<CR>
 
 " 选中并高亮最后一次插入的内容
 nnoremap gv `[v`]
