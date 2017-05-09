@@ -5,14 +5,15 @@
 Plug 'bps/vim-textobj-python'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'morhetz/gruvbox'
-Plug 'jceb/vim-orgmode'
+" Plug 'jceb/vim-orgmode'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'FooSoft/vim-argwrap'
-Plug 'flazz/vim-colorschemes'
+" Plug 'flazz/vim-colorschemes'
 Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
 Plug 'godlygeek/tabular'
+Plug 'jonathanfilip/vim-lucius'
 
 " Plug 'tpope/vim-obsession'
 " Plug 'tpope/vim-speeddating'
@@ -114,9 +115,10 @@ if count(g:bundle_groups, 'javascript')
     autocmd FileType javascript nnoremap <leader>tR :TernRename<CR>
     " autocmd FileType javascript setlocal omnifunc=tern#Complete
 
-    autocmd FileType javascript JsPreTmpl html
-    autocmd FileType typescript JsPreTmpl html
-    autocmd FileType typescript syn clear foldBraces
+    " conflict with gruvbox theme
+    " autocmd FileType javascript JsPreTmpl html
+    " autocmd FileType typescript JsPreTmpl html
+    " autocmd FileType typescript syn clear foldBraces
 
     let g:used_javascript_libs = 'jquery,underscore,backbone,angularjs,angularui,angularuirouter,react,requirejs,vue,d3'
 
