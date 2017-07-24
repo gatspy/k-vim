@@ -14,6 +14,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
 Plug 'godlygeek/tabular'
 Plug 'jonathanfilip/vim-lucius'
+Plug 'tweekmonster/braceless.vim'
 
 " Plug 'tpope/vim-obsession'
 " Plug 'tpope/vim-speeddating'
@@ -148,6 +149,8 @@ if count(g:bundle_groups, 'javascript')
     autocmd FileType html nnoremap <buffer> <c-f> :call HtmlBeautify()<cr>
     autocmd FileType css nnoremap <buffer> <c-f> :call CSSBeautify()<cr>
 
+    let g:syntastic_javascript_checkers = ['eshint']
+
 endif
 
 if count(g:bundle_groups, 'angularjs')
@@ -162,6 +165,11 @@ if count(g:bundle_groups, 'angular')
 
 endif
 
+if count(g:bundle_groups, 'vue')
+    Plug 'posva/vim-vue'
+    autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+endif
+
 if count(g:bundle_groups, 'django')
     Plug 'tweekmonster/django-plus.vim'
 endif
@@ -170,9 +178,12 @@ if count(g:bundle_groups, 'csharp')
     Plug 'OmniSharp/omnisharp-vim', { 'for': 'csharp' }
 
     let g:OmniSharp_selector_ui = 'fzf'
-    let g:OmniSharp_server_type = 'v1'
-    let g:OmniSharp_server_type = 'roslyn'
-    let g:ycm_auto_stop_csharp_server = 1
+    " let g:OmniSharp_server_type = 'v1'
+    " let g:OmniSharp_server_type = 'roslyn'
+    " let g:OmniSharp_prefer_global_sln = 1
+    let g:OmniSharp_timeout = 10
+    " let g:ycm_auto_start_csharp_server = 1
+    " let g:ycm_auto_stop_csharp_server = 1
 
 endif
 
