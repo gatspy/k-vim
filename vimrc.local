@@ -312,6 +312,8 @@ let g:ycm_semantic_triggers = {
 \   'scss,css': [ 're!^\s{2,4}', 're!:\s+' ],
 \   'vim' : ['re![_a-za-z]+[_\w]*\.'],
 \ }
+" let g:ycm_completion_confirm_key = '<enter>'
+let g:ycm_key_list_stop_completion = ['<CR>']
 
 " Emmet
 let g:user_emmet_leader_key='<c-e>'
