@@ -1,20 +1,21 @@
-" install Vundle bundles
-" if filereadable(expand("~/.kvimrc.bundles"))
-"   source ~/.kvimrc.bundles
-" endif
 Plug 'bps/vim-textobj-python'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'morhetz/gruvbox'
-" Plug 'jceb/vim-orgmode'
+" Plug 'michaeljsmith/vim-indent-object'
+Plug 'godlygeek/tabular'
+Plug 'FooSoft/vim-argwrap'
+Plug 'tweekmonster/braceless.vim'
+" 注释 gc 注释当前行
+" Plug 'tpope/vim-commentary'
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'FooSoft/vim-argwrap'
-" Plug 'flazz/vim-colorschemes'
-Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
-Plug 'godlygeek/tabular'
+" Plug 'jceb/vim-orgmode'
+
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'morhetz/gruvbox'
 Plug 'jonathanfilip/vim-lucius'
-Plug 'tweekmonster/braceless.vim'
+Plug 'ryanoasis/vim-devicons'
+" Plug 'flazz/vim-colorschemes'
 
 " Plug 'tpope/vim-obsession'
 " Plug 'tpope/vim-speeddating'
@@ -30,6 +31,7 @@ Plug 'tweekmonster/braceless.vim'
 " Plug 'HerringtonDarkholme/vim-worksheet'
 
 UnPlug 'tomasr/molokai'
+" UnPlug 'scrooloose/nerdcommenter'
 " UnPlug 'lightline.vim'
 " UnPlug 'OmniSharp/omnisharp-vim'
 " UnPlug 'vim-airline'
@@ -198,6 +200,56 @@ if count(g:bundle_groups, 'nodejs')
 
 endif
 
+if count(g:bundle_groups, 'golang')
+    " ============================================================================
+    " Vim-go {{{
+    " ============================================================================
+        let g:go_fmt_fail_silently = 0
+        let g:go_fmt_command = "goimports"
+        let g:go_autodetect_gopath = 1
+        let g:go_term_enabled = 0
+        let g:go_term_mode = "split"
+        let g:go_auto_type_info = 1
+
+        let g:go_highlight_space_tab_error = 0
+        let g:go_highlight_array_whitespace_error = 0
+        let g:go_highlight_trailing_whitespace_error = 0
+        let g:go_highlight_extra_types = 0
+        let g:go_highlight_operators = 0
+        let g:go_highlight_build_constraints = 1
+
+        nmap <C-g> :GoDecls<cr>
+        imap <C-g> <esc>:<C-u>GoDecls<cr>
+
+        au FileType go nmap <Leader>ds <Plug>(go-def-split)
+        au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+        au FileType go nmap <Leader>dt <Plug>(go-def-tab)
+
+        au FileType go nmap <Leader>i <Plug>(go-info)
+        au FileType go nmap <Leader>l <Plug>(go-metalinter)
+        au FileType go nmap <Leader>e <Plug>(go-rename)
+
+        au FileType go nmap <leader>r  <Plug>(go-run)
+        au FileType go nmap <leader>b  <Plug>(go-build)
+        au FileType go nmap <leader>t  <Plug>(go-test)
+        au FileType go nmap <Leader>d <Plug>(go-doc)
+        au FileType go nmap <Leader>c <Plug>(go-coverage)
+
+        au FileType go nmap <Leader>gds <Plug>(go-doc)
+        au FileType go nmap <Leader>gdv <Plug>(go-doc-vertical)
+        au FileType go nmap <Leader>gdb <Plug>(go-doc-browser)
+
+        " I like these more!
+        augroup go
+        autocmd!
+        autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+        autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+        autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+        augroup END
+
+    " }}}
+endif
+
 " trailingwhitespace {{{
     map <leader><leader><space> :FixWhitespace<cr>
 " }}}
@@ -205,11 +257,134 @@ endif
 
 " argwrap {{{
     nnoremap <silent> <leader>wa :ArgWrap<CR>
+    let g:argwrap_padded_braces = '[{'
+    let g:argwrap_wrap_closing_brace = 0
 " }}}
 
+" 
+
+" indentLine{{{
+    let g:indentLine_color_term = 239
+" }}}
+
+
+" ============================================================================
 " YouCompleteMe {{{
+" ============================================================================
+ 
+    let g:ycm_global_ycm_extra_conf = '~/.config/ycm/.ycm_extra_conf.py'
     nnoremap <leader>gt :YcmCompleter GetType<cr>
     nnoremap <leader>go :YcmCompleter GoTo<cr>
     nnoremap <leader>gf :YcmCompleter GoToDefinition<cr>
     nnoremap <leader>gr :YcmCompleter GoToReferences<cr>
+
+" }}}
+
+
+" ============================================================================
+" Web Developement {{{
+" ============================================================================
+    let delimitMate_expand_cr = 1
+    let delimitMate_expand_space = 1
+    " au FileType javascript,html,python let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
+    let g:used_javascript_libs = 'jquery,underscore,angularjs,angularui,react,flux'
+    let javascript_enable_domhtmlcss = 1
+    " YCM的自动补全触发器只考虑当前行。 较好的补救办法是手动设置一下触发器
+    let g:ycm_semantic_triggers = {
+    \   'css': [ 're!^\s{4}', 're!:\s+'],
+    \   'html': ['<', '"', '</', ' '],
+    \   'cs,java,typescript,d,python,perl6,scala,vb,elixir,go' : ['.', 're!(?=[a-zA-Z]{3,4})'],
+    \   'php' : ['->', '::', '(', 'use ', 'namespace ', '\'],
+    \   'ruby' : ['.', '::'],
+    \   'lua' : ['.', ':'],
+    \   'erlang' : [':'],
+    \   'perl' : ['->'],
+    \   'haskell' : ['.', 're!.'],
+    \   'scss,css': [ 're!^\s{2,4}', 're!:\s+' ],
+    \   'vim' : ['re![_a-za-z]+[_\w]*\.'],
+    \ }
+    " let g:ycm_completion_confirm_key = '<enter>'
+    let g:ycm_key_list_stop_completion = ['<CR>']
+
+    " Emmet
+    let g:user_emmet_leader_key='<c-e>'
+    autocmd FileType html,htmldjango,jinja,css,scss EmmetInstall
+    nnoremap <F12>f :exe ':silent !open -a /Applications/Firefox.app %'<CR>
+    nnoremap <F12>c :exe ':silent !open -a /Applications/Google\ Chrome.app %'<CR>
+    nnoremap <F12>g :exe ':silent !open -a /Applications/Google\ Chrome.app %'<CR>
+    nnoremap <F12>s :exe ':silent !open /Applications/Safari.app %'<CR>
+    " inoremap yy <C-y>,
+
+    " Markdown
+    function! s:setupMarkdown()
+        nnoremap <leader>m :silent !open -a Typora.app '%:p'<cr>
+    endfunction
+
+    au BufRead,BufNewFile *.{md,markdown,mdown,mkdn} call s:setupMarkdown()
+
+" }}}
+
+
+" ============================================================================
+" CtrlP {{{
+" ============================================================================
+
+    let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+
+" }}}
+
+" ============================================================================
+" FZF {{{
+" ============================================================================
+
+    if has('nvim')
+    let $FZF_DEFAULT_OPTS .= ' --inline-info'
+    " let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+    endif
+
+    " File preview using CodeRay (http://coderay.rubychan.de/)
+    let g:fzf_files_options =
+    \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+
+    " nnoremap <silent> <Leader><Leader> :Files<CR>
+    nnoremap <silent> <expr> <Leader><Space> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":Files\<cr>"
+    nnoremap <silent> <Leader>C        :Colors<CR>
+    nnoremap <silent> <Leader><Enter>  :Buffers<CR>
+    nnoremap <silent> <leader>B :Buffers<CR>
+    nnoremap <silent> <leader>W :Windows<CR>
+    nnoremap <silent> <leader>L :BLines<CR>
+    nnoremap <silent> <leader>t :BTags<CR>
+    nnoremap <silent> <leader>T :Tags<CR>
+    nnoremap <silent> <leader>H :History<CR>
+    nnoremap <silent> <Leader>M :Marks<CR>
+
+    nnoremap <silent> <leader>gl :Commits<CR>
+    nnoremap <silent> <leader>ga :BCommits<CR>
+    nnoremap <silent> <leader>ft :Filetypes<CR>
+
+    " nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
+    " nnoremap <silent> <leader>. :AgIn
+    nnoremap <silent> <Leader>ag  :Ag <C-R><C-W><CR>
+    nnoremap <silent> <Leader>AG  :Ag <C-R><C-A><CR>
+
+
+    " nnoremap <silent> q: :History:<CR>
+    " nnoremap <silent> q/ :History/<CR>
+
+    inoremap <expr> <c-x><c-t> fzf#complete('tmuxwords.rb --all-but-current --scroll 500 --min 5')
+    imap <c-x><c-k> <plug>(fzf-complete-word)
+    imap <c-x><c-f> <plug>(fzf-complete-path)
+    imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+    imap <c-x><c-l> <plug>(fzf-complete-line)
+
+    nmap <leader><tab> <plug>(fzf-maps-n)
+    xmap <leader><tab> <plug>(fzf-maps-x)
+    omap <leader><tab> <plug>(fzf-maps-o)
+
+    command! Plugs call fzf#run({
+    \ 'source':  map(sort(keys(g:plugs)), 'g:plug_home."/".v:val'),
+    \ 'options': '--delimiter / --nth -1',
+    \ 'down':    '~40%',
+    \ 'sink':    'Explore'})
+
 " }}}
