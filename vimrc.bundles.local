@@ -3,6 +3,7 @@ Plug 'bps/vim-textobj-python'
 Plug 'godlygeek/tabular'
 Plug 'FooSoft/vim-argwrap'
 Plug 'tweekmonster/braceless.vim'
+" Plug 'Chiel92/vim-autoformat'
 " 注释 gc 注释当前行
 " Plug 'tpope/vim-commentary'
 
