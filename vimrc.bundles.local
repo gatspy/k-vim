@@ -4,7 +4,7 @@ Plug 'godlygeek/tabular'
 Plug 'FooSoft/vim-argwrap'
 Plug 'tweekmonster/braceless.vim'
 Plug 'artur-shaik/vim-javacomplete2'
-" Plug 'Chiel92/vim-autoformat'
+Plug 'Chiel92/vim-autoformat'
 " 注释 gc 注释当前行
 " Plug 'tpope/vim-commentary'
 
@@ -110,7 +110,8 @@ if count(g:bundle_groups, 'javascript')
     Plug 'jason0x43/vim-js-indent'
     " Plugin 'isRuslan/vim-es6'
     Plug 'editorconfig/editorconfig-vim'
-    Plug 'maksimr/vim-jsbeautify', {'do' : 'git submodule update --init --recursive && npm install'}
+    " 使用vim-autoformat
+    " Plug 'maksimr/vim-jsbeautify', {'do' : 'git submodule update --init --recursive && npm install'}
 
     let g:tern_map_keys=1
     let g:tern_show_signature_in_pum = 1
@@ -142,16 +143,16 @@ if count(g:bundle_groups, 'javascript')
     " [> JsBeautify <]
 
     " format selection
-    autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
-    autocmd FileType json vnoremap <buffer>  <c-f> :call RangeJsonBeautify()<cr>
-    autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
-    autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
+    " autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
+    " autocmd FileType json vnoremap <buffer>  <c-f> :call RangeJsonBeautify()<cr>
+    " autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
+    " autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 
     " format the whole file
-    autocmd FileType javascript nnoremap <buffer>  <c-f> :call JsBeautify()<cr>
-    autocmd FileType json nnoremap <buffer>  <c-f> :call JsonBeautify()<cr>
-    autocmd FileType html nnoremap <buffer> <c-f> :call HtmlBeautify()<cr>
-    autocmd FileType css nnoremap <buffer> <c-f> :call CSSBeautify()<cr>
+    " autocmd FileType javascript nnoremap <buffer>  <c-f> :call JsBeautify()<cr>
+    " autocmd FileType json nnoremap <buffer>  <c-f> :call JsonBeautify()<cr>
+    " autocmd FileType html nnoremap <buffer> <c-f> :call HtmlBeautify()<cr>
+    " autocmd FileType css nnoremap <buffer> <c-f> :call CSSBeautify()<cr>
 
     let g:syntastic_javascript_checkers = ['eshint']
 
@@ -266,7 +267,7 @@ endif
     let g:argwrap_wrap_closing_brace = 0
 " }}}
 
-" 
+"
 
 " indentLine{{{
     let g:indentLine_color_term = 239
@@ -276,13 +277,20 @@ endif
 " ============================================================================
 " YouCompleteMe {{{
 " ============================================================================
- 
+
     let g:ycm_global_ycm_extra_conf = '~/.config/ycm/.ycm_extra_conf.py'
     nnoremap <leader>gt :YcmCompleter GetType<cr>
     nnoremap <leader>go :YcmCompleter GoTo<cr>
     nnoremap <leader>gf :YcmCompleter GoToDefinition<cr>
     nnoremap <leader>gr :YcmCompleter GoToReferences<cr>
 
+" }}}
+
+" ============================================================================
+" Vim Autoformat {{{
+" ============================================================================
+    noremap <leader>ff :Autoformat<CR>
+    " autocmd FileType python let b:autoformat_autoindent=0
 " }}}
 
 
@@ -309,7 +317,8 @@ endif
     \   'vim' : ['re![_a-za-z]+[_\w]*\.'],
     \ }
     " let g:ycm_completion_confirm_key = '<enter>'
-    let g:ycm_key_list_stop_completion = ['<CR>']
+    " k-vim add this config
+    " let g:ku_key_list_stop_completion = ['<CR>']
 
     " Emmet
     let g:user_emmet_leader_key='<c-e>'
