@@ -3,6 +3,7 @@ Plug 'bps/vim-textobj-python'
 Plug 'godlygeek/tabular'
 Plug 'FooSoft/vim-argwrap'
 Plug 'tweekmonster/braceless.vim'
+Plug 'artur-shaik/vim-javacomplete2'
 " Plug 'Chiel92/vim-autoformat'
 " 注释 gc 注释当前行
 " Plug 'tpope/vim-commentary'
@@ -251,6 +252,9 @@ if count(g:bundle_groups, 'golang')
     " }}}
 endif
 
+" vim-javacomplete2 {{{
+    autocmd FileType java setlocal omnifunc=javacomplete#Complete
+" }}}
 " trailingwhitespace {{{
     map <leader><leader><space> :FixWhitespace<cr>
 " }}}
