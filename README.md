@@ -133,6 +133,11 @@ vim-nerdtree-tabs     # 在新标签打开共享nerdtree，不需要每次重新
 > [vim插件: nerdcommenter[快速注释]](http://wklken.me/posts/2015/06/07/vim-plugin-nerdcommenter.html)
 
 ### [代码折叠] folding
+sudo yum install python-devel.x86_64
+sudo yum groupinstall 'Development Tools'
+sudo rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+sudo yum install the_silver_searcher
+sudo yum install cmake
 
 ```vim
 <leader>     + zz     # 全文折叠
@@ -169,6 +174,10 @@ M                # 在水平和垂直之间切换ctrlsf窗口
 q                # 退出ctrlsf窗口
 
 # 依赖ag
+brew install node
+npm install jshint -g
+npm install jslint -g
+npm install -g eslint eslint-plugin-standard eslint-plugin-promise eslint-config-standard eslint-plugin-import eslint-plugin-node eslint-plugin-html babel-eslint
 ```
 
 ### [语法检查] syntastic
@@ -199,10 +208,12 @@ Ctrl     + p     # 放弃一个，回到上一个
 Ctrl     + x     # 跳过当前选中，选中下一个
 esc              # 退出操作
 
+```
 # 选中以后可以增删替换 a/c/x等
 ```
 > [vim插件: multiple-cursors[多光标操作]](http://wklken.me/posts/2015/06/07/vim-plugin-multiplecursors.html)
 
+---------------------------------
 ### [快速标记跳转] vim-signature
 
 ```vim
@@ -368,6 +379,7 @@ moll/vim-node
 ## 操作
 gf                  # 跳转到文件定义
 [I                  # 查找引用
+gv        选中并高亮最后一次插入的内容
 :Nedit ./mname      # 编辑当前模块或者mname指示的模块
 Ctrl+w Ctrl+f       # 垂直窗口打开光标下的文件 Ctrl+w+f也是
 
@@ -395,8 +407,32 @@ Shougo/vimproc.vim
 :TsuReferences      # 显示引用
 
 ## Angular / ng
+5. YCM 设置回车选中不再弹补全框
 
+细节:
+1. 新增快捷键 gv 选中并高亮最后一次插入的内容
 ```
+
+### Contributors
+
+thx a lot. 可以给我提pull request:)
+
+查看详情 [git-contributors](https://github.com/wklken/k-vim/graphs/contributors)
+
+### Inspire
+
+1. vimrc文件布局`vimrc+vimrc.bundles`配置方式参考 [maximum-awesome](https://github.com/square/maximum-awesome)
+
+2. install.sh 参考`spf13-vim` 的`bootstrap.sh` [spf13-vim](https://github.com/spf13/spf13-vim)
+
+2. 插件管理使用[Vim-plug](https://github.com/junegunn/vim-plug)
+
+3. 自动补全 [YCM](https://github.com/Valloric/YouCompleteMe)
+
+4. 插件挑选 [VimAwesome](http://vimawesome.com/)
+
+### Resources
+
 > [Vim Configuration for TypeScript and Angular2 Development](http://www.blog.bdauria.com/?p=692)
 
 #### [AngularJS]
