@@ -12,8 +12,22 @@ endfunction
 
 command! -nargs=1 -bar UnPlug call s:deregister(<args>)
 
+" let file_ext = &filetype
+let file_ext = expand('%:e')
+
+
 if filereadable(expand("~/.vimrc.main"))
-  let g:bundle_groups=['nodejs', 'python', 'javascript', 'angularjs', 'angular', 'markdown', 'html', 'css', 'tmux', 'beta', 'golang', 'ruby', 'typescript','vue', 'django', 'csharp']
+  if file_ext == 'ts'
+    let g:bundle_groups=['nodejs', 'angular', 'html', 'css', 'typescript', 'vue']
+  elseif file_ext == 'js'
+    let g:bundle_groups=['javascript', 'nodejs', 'angularjs', 'html', 'css', 'vue']
+  elseif file_ext == 'py'
+    let g:bundle_groups=['python', 'tmux', 'golang', 'ruby', 'django']
+  elseif file_ext == 'ruby'
+    let g:bundle_groups=['python', 'tmux', 'golang', 'ruby']
+  else
+    " let g:bundle_groups=['nodejs', 'python', 'javascript', 'angularjs', 'angular', 'markdown', 'html', 'css', 'tmux', 'beta', 'golang', 'ruby', 'typescript', 'csharp']
+  endif
   source ~/.vimrc.main
 
   " set NerdTreeIgnore
@@ -108,3 +122,5 @@ nnoremap <Leader>rts :%s/   /    /g<CR>
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
+
+autocmd Filetype html if getfsize(@%) > 10240 | setlocal syntax=OFF | endif

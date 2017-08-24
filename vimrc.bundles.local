@@ -17,6 +17,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'morhetz/gruvbox'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'ryanoasis/vim-devicons'
+Plug 'Yggdroot/indentLine'
 " Plug 'flazz/vim-colorschemes'
 
 " Plug 'tpope/vim-obsession'
@@ -97,7 +98,6 @@ if count(g:bundle_groups, 'typescript')
 endif
 
 if count(g:bundle_groups, 'beta')
-    Plug 'Yggdroot/indentLine'
     UnPlug 'nathanaelkane/vim-indent-guides'
 endif
 
@@ -113,6 +113,7 @@ if count(g:bundle_groups, 'javascript')
     " 使用vim-autoformat
     " Plug 'maksimr/vim-jsbeautify', {'do' : 'git submodule update --init --recursive && npm install'}
 
+    " set foldmethod=syntax
     let g:tern_map_keys=1
     let g:tern_show_signature_in_pum = 1
     let g:tern_show_argument_hints = 'on_hold'
@@ -289,7 +290,8 @@ endif
 " ============================================================================
 " Vim Autoformat {{{
 " ============================================================================
-    noremap <leader>ff :Autoformat<CR>
+    " noremap <leader>ff :Autoformat<CR>
+    noremap <c-f> :Autoformat<CR>
     " autocmd FileType python let b:autoformat_autoindent=0
 " }}}
 
