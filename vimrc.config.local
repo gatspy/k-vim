@@ -1,6 +1,11 @@
 " ----------------------------------------------------------------------
 " plugin customized setting
 "-----------------------------------------------------------------------
+if count(g:bundle_groups, 'python')
+    " let g:mule_python_command = 'python3'
+    let g:mule_auto_env = 1
+    let g:mule_no_hotkeys = 1
+endif
 if count(g:bundle_groups, 'typescript')
     " let g:typescript_indent_disable = 1
     let g:typescript_compiler_binary = 'tsc'
