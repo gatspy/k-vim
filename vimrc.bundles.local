@@ -74,7 +74,7 @@ if count(g:bundle_groups, 'vue')
     Plug 'posva/vim-vue'
 endif
 
-if count(g:bundle_groups, 'django')
+if count(g:bundle_groups, 'python')
     Plug 'tweekmonster/django-plus.vim'
 endif
 

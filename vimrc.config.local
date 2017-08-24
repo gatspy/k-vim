@@ -207,8 +207,8 @@ let g:quickrun_config = {
 " ============================================================================
 " Vim Autoformat {{{
 " ============================================================================
-" noremap <leader>ff :Autoformat<CR>
-noremap <c-f> :Autoformat<CR>
+noremap <leader><leader>f :Autoformat<CR>
+" noremap <c-f> :Autoformat<CR>
 " autocmd FileType python let b:autoformat_autoindent=0
 " }}}
 
