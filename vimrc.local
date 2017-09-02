@@ -17,21 +17,27 @@ let file_ext = expand('%:e')
 if filereadable(expand("~/.vimrc.main"))
 
   if file_ext == 'ts'
-    let g:bundle_groups=['nodejs', 'angular', 'html', 'css', 'typescript', 'vue']
+    let g:bundle_groups=['nodejs', 'angular', 'html', 'css', 'typescript', 'vue', 'web']
 
   elseif file_ext == 'js'
-    let g:bundle_groups=['javascript', 'nodejs', 'angularjs', 'html', 'css', 'vue']
+    let g:bundle_groups=['javascript', 'nodejs', 'angularjs', 'html', 'css', 'vue', 'web']
 
   elseif file_ext == 'py'
-    let g:bundle_groups=['python', 'tmux']
+    let g:bundle_groups=['python', 'tmux', 'web', 'flask']
+    " let g:bundle_groups=['python', 'tmux', 'web', 'jinja', 'django']
 
   elseif file_ext == 'ruby'
     let g:bundle_groups=['ruby', 'tmux']
 
   elseif file_ext == 'java'
-    let g:bundle_groups=['java', 'javascript']
+    let g:bundle_groups=['java']
 
-  else
+  elseif file_ext == 'go'
+    let g:bundle_groups=['golang', 'tmux', 'web']
+
+  elseif file_ext == 'html'
+    let g:bundle_groups=['web', 'javascript', 'html', 'css']
+  " else
     " let g:bundle_groups=['nodejs', 'python', 'javascript', 'angularjs', 'angular', 'markdown', 'html', 'css', 'tmux', 'beta', 'golang', 'ruby', 'typescript', 'csharp']
   endif
   source ~/.vimrc.main

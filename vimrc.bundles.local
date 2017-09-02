@@ -50,13 +50,17 @@ if count(g:bundle_groups, 'beta')
 endif
 
 if count(g:bundle_groups, 'javascript')
-    Plug 'mattn/emmet-vim'
     Plug 'marijnh/tern_for_vim', {'do': 'npm install'}
     " Plug 'hail2u/vim-css3-syntax'
-    Plug 'groenewege/vim-less'
+    " main bundles file add this
+    " Plug 'groenewege/vim-less'
     Plug 'Quramy/vim-js-pretty-template'
     Plug 'jason0x43/vim-js-indent'
     " Plugin 'isRuslan/vim-es6'
+endif
+
+if count(g:bundle_groups, 'web')
+    Plug 'mattn/emmet-vim'
     Plug 'editorconfig/editorconfig-vim'
 endif
 
@@ -74,9 +78,13 @@ if count(g:bundle_groups, 'vue')
     Plug 'posva/vim-vue'
 endif
 
-if count(g:bundle_groups, 'python')
+if count(g:bundle_groups, 'django')
     Plug 'tweekmonster/django-plus.vim'
     Plug 'umutcoskun/vim-mule'
+endif
+
+if count(g:bundle_groups, 'flask')
+    " Plug 'lepture/vim-jinja'
 endif
 
 if count(g:bundle_groups, 'csharp')

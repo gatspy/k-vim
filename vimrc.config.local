@@ -184,6 +184,25 @@ let g:indentLine_color_term = 239
 " ============================================================================
 " YouCompleteMe {{{
 " ============================================================================
+" let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
+" let g:ycm_server_python_interpreter = '/usr/local/var/pyenv/versions/py3/bin/python'
+" let g:ycm_path_to_python_interpreter = '/usr/local/var/pyenv/versions/3.5.0/bin/python'
+" let g:ycm_python_binary_path = '/usr/local/var/pyenv/versions/3.5.0/envs/py3/bin/python'
+
+let g:py_virtual_pyenv = $PYENV_VIRTUAL_ENV
+if len(py_virtual_pyenv)>0
+    let g:py_virtual_pyenv .= '/bin/python'
+    let g:ycm_python_binary_path = py_virtual_pyenv
+else
+    let py_shell_version = $PYENV_VERSION + 0
+    if py_shell_version >= 3
+        let g:ycm_python_binary_path = '/usr/local/var/pyenv/shims/python'
+    else
+        " let g:ycm_python_binary_path = $MY_PY_G2
+        let g:ycm_python_binary_path ='/usr/local/var/pyenv/shims/python'
+    endif
+endif
+let g:ycm_global_ycm_extra_conf = '~/.config/ycm/.ycm_extra_conf.py'
 let g:ycm_global_ycm_extra_conf = '~/.config/ycm/.ycm_extra_conf.py'
 nnoremap <leader>gt :YcmCompleter GetType<cr>
 nnoremap <leader>go :YcmCompleter GoTo<cr>
@@ -231,6 +250,10 @@ let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 " ============================================================================
 " Web Developement {{{
 " ============================================================================
+" Emmet
+let g:user_emmet_leader_key='<c-e>'
+" autocmd FileType html,htmldjango,jinja,css,scss EmmetInstall
+
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
 " au FileType javascript,html,python let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
@@ -254,9 +277,6 @@ let g:ycm_semantic_triggers = {
 " k-vim add this config
 " let g:ku_key_list_stop_completion = ['<CR>']
 
-" Emmet
-let g:user_emmet_leader_key='<c-e>'
-autocmd FileType html,htmldjango,jinja,css,scss EmmetInstall
 nnoremap <F12>f :exe ':silent !open -a /Applications/Firefox.app %'<CR>
 nnoremap <F12>c :exe ':silent !open -a /Applications/Google\ Chrome.app %'<CR>
 nnoremap <F12>g :exe ':silent !open -a /Applications/Google\ Chrome.app %'<CR>
