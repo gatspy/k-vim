@@ -135,8 +135,6 @@ nnoremap <Leader>rts :%s/   /    /g<CR>
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
-autocmd Filetype html if getfsize(@%) > 10240 | setlocal syntax=OFF | endif
-
 if filereadable(expand("~/.vimrc.config.local"))
   source ~/.vimrc.config.local
 endif
