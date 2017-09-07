@@ -256,7 +256,12 @@ let g:user_emmet_leader_key='<c-e>'
 
 let g:syntastic_html_checkers=['']
 " let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute " ,"trimming empty <", "unescaped &" , "lacks \"action", "is not recognized!", "discarding unexpected"]
-let g:ale_linters = {'html': []}
+if has_key(g:plugs, 'ale')
+    let g:ale_linters = {
+    \   'html': [],
+    \   'javascript': [],
+    \}
+endif
 " autocmd BufEnter *.html colorscheme PaperColor
 autocmd Filetype html if getfsize(@%) > 10240 | setlocal syntax=OFF | endif
 
