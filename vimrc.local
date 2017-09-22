@@ -35,8 +35,8 @@ if filereadable(expand("~/.vimrc.main"))
   elseif file_ext == 'go'
     let g:bundle_groups=['golang', 'tmux', 'web']
 
-  elseif file_ext == 'ex'
-    let g:bundle_groups=['elixir', 'tmux', 'web']
+  elseif file_ext == 'exs' || file_ext == 'ex'
+    let g:bundle_groups=['iex', 'tmux', 'web']
 
   " else
     " let g:bundle_groups=['nodejs', 'python', 'javascript', 'angularjs', 'angular', 'markdown', 'html', 'css', 'tmux', 'beta', 'golang', 'ruby', 'typescript', 'csharp']

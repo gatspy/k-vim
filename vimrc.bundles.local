@@ -40,6 +40,11 @@ UnPlug 'tomasr/molokai'
 " UnPlug 'vim-airline-themes'
 " UnPlug 'altercation/vim-colors-solarized'
 
+if count(g:bundle_groups, 'iex')
+    Plug 'elixir-editors/vim-elixir'
+    Plug 'slashmili/alchemist.vim'
+endif
+
 if count(g:bundle_groups, 'typescript')
     Plug 'leafgarland/typescript-vim'
     Plug 'Shougo/vimproc.vim', {'do' : 'make'}
