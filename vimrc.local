@@ -119,6 +119,10 @@ noremap <c-up> :call feedkeys( line('.')==1 ? '' : 'ddkP' )<CR>
 "  i   : back to insert mode
 inoremap <c-u> <esc>viwUi
 
+" quickly move current line, likely n[e or n]e
+nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
+nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
+
 " Replaces the current word (and all occurrences).
 nnoremap <Leader>rc :%s/\<<C-r><C-w>\>/
 vnoremap <Leader>rc y:%s/<C-r>"/
