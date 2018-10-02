@@ -6,6 +6,7 @@ if count(g:bundle_groups, 'python')
     let g:mule_auto_env = 1
     let g:mule_no_hotkeys = 1
 endif
+
 if count(g:bundle_groups, 'typescript')
     " let g:typescript_indent_disable = 1
     let g:typescript_compiler_binary = 'tsc'
@@ -78,11 +79,7 @@ if count(g:bundle_groups, 'javascript')
     " \ 'dir':  'node_modules\|DS_Store\|bower_components',
     " \ }
 
-    " [> EditorConfig <]
-    " to avoid issues with fugitive
-    let g:EditorConfig_exclude_patterns = ['fugitive://.*']
-
-    let g:syntastic_javascript_checkers = ['eshint']
+    let g:syntastic_javascript_checkers = ['eslint']
 endif
 
 if count(g:bundle_groups, 'angularjs')
@@ -177,8 +174,13 @@ let g:argwrap_padded_braces = '[{'
 let g:argwrap_wrap_closing_brace = 0
 " }}}
 
-" indentLine{{{
+" indentLine {{{
 let g:indentLine_color_term = 239
+" }}}
+
+" EditorConfig {{{
+" to avoid issues with fugitive
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 " }}}
 
 " ============================================================================
@@ -202,8 +204,8 @@ else
         let g:ycm_python_binary_path ='/usr/local/var/pyenv/shims/python'
     endif
 endif
-let g:ycm_global_ycm_extra_conf = '~/.config/ycm/.ycm_extra_conf.py'
-let g:ycm_global_ycm_extra_conf = '~/.config/ycm/.ycm_extra_conf.py'
+" let g:ycm_global_ycm_extra_conf = '~/.config/ycm/.ycm_extra_conf.py'
+" let g:ycm_global_ycm_extra_conf = '~/.config/ycm/.ycm_extra_conf.py'
 nnoremap <leader>gt :YcmCompleter GetType<cr>
 nnoremap <leader>go :YcmCompleter GoTo<cr>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<cr>
@@ -228,14 +230,6 @@ let g:quickrun_config = {
 
 " }}}
 
-" ============================================================================
-" Vim Autoformat {{{
-" ============================================================================
-noremap <leader><leader>f :Autoformat<CR>
-" noremap <c-f> :Autoformat<CR>
-" autocmd FileType python let b:autoformat_autoindent=0
-" }}}
-
 " trailingwhitespace {{{
 map <leader><leader><space> :FixWhitespace<cr>
 " }}}
@@ -258,9 +252,20 @@ let g:WebDevIconsNerdTreeAfterGlyphPadding=' '
 " }}}
 
 " ============================================================================
+" Vim Autoformat {{{
+" ============================================================================
+noremap <leader><leader>f :Autoformat<CR>
+noremap! <leader><leader>f <esc> :Autoformat<CR>
+let g:formatters_javascript = ['prettier']
+" noremap <c-f> :Autoformat<CR>
+" autocmd FileType python let b:autoformat_autoindent=0
+" }}}
+
+" ============================================================================
 " Web Developement {{{
 " ============================================================================
 " Emmet
+" type ctrl -y -, will expand
 let g:user_emmet_leader_key='<c-e>'
 " autocmd FileType html,htmldjango,jinja,css,scss EmmetInstall
 
@@ -269,9 +274,31 @@ let g:syntastic_html_checkers=['']
 if has_key(g:plugs, 'ale')
     let g:ale_linters = {
     \   'html': [],
-    \   'javascript': [],
+    \   'javascript': ['eslint'],
     \}
+
+    let g:ale_fixers = {
+        \   'javascript': ['prettier', 'eslint'],
+        \   'css': ['prettier'],
+        \}
+    let g:ale_fix_on_save = 1
+    noremap <leader>j <Plug>(ale_fix)
 endif
+
+" Prettier
+if has_key(g:plugs, 'vim-prettier')
+    " nmap <Leader>py <Plug>(Prettier)
+    au filetype javascript,javascript.jsx,typescript,less,scss,css,json,graphql noremap <leader><leader>f :Prettier<CR>
+    au filetype javascript,javascript.jsx,typescript,less,scss,css,json,graphql noremap <leader><leader>f <esc> :Prettier<CR>
+endif
+
+
+" jsx file
+augroup FiletypeGroup
+    autocmd!
+    au BufNewFile,BufRead *.jsx set filetype=javascript.jsx
+augroup END
+
 " autocmd BufEnter *.html colorscheme PaperColor
 autocmd Filetype html if getfsize(@%) > 10240 | setlocal syntax=OFF | endif
 
@@ -368,3 +395,28 @@ command! Plugs call fzf#run({
             \ 'sink':    'Explore'})
 
 " }}}
+
+" ============================================================================
+" ESLint Switch {{{
+" ============================================================================
+" auto-formatter
+function! ESlintFormatter()
+    let l:npm_bin = ''
+    let l:eslint = 'eslint'
+    if executable('npm')
+        let l:npm_bin = split(system('npm bin'), '\n')[0]
+    endif
+    if strlen(l:npm_bin) && executable(l:npm_bin . '/eslint')
+        let l:eslint = l:npm_bin . '/eslint'
+    endif
+    let g:formatdef_eslint = '"SRC=eslint-temp-${RANDOM}.js; cat - >$SRC; ' . l:eslint . ' --fix $SRC >/dev/null 2>&1; cat $SRC | perl -pe \"chomp if eof\"; rm -f $SRC"'
+endfunction
+" use: autocmd FileType javascript :call ESlintFormatter()
+" }}}
+
+function! InitNodeEnv()
+    silent !clear
+    execute "! nvm use default"
+endfunction
+
+" call InitNodeEnv()

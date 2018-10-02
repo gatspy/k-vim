@@ -19,7 +19,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'Yggdroot/indentLine'
 " Plug 'flazz/vim-colorschemes'
 
-" Plug 'tpope/vim-obsession'
+Plug 'tpope/vim-obsession'
+Plug 'editorconfig/editorconfig-vim'
 " Plug 'tpope/vim-speeddating'
 " Plug 'Shougo/vimshell.vim'
 " Plug 'itchyny/lightline.vim'
@@ -56,18 +57,23 @@ if count(g:bundle_groups, 'beta')
 endif
 
 if count(g:bundle_groups, 'javascript')
-    Plug 'marijnh/tern_for_vim', {'do': 'npm install'}
-    " Plug 'hail2u/vim-css3-syntax'
+    " Plug 'marijnh/tern_for_vim', {'do': 'npm install'}
     " main bundles file add this
-    " Plug 'groenewege/vim-less'
     Plug 'Quramy/vim-js-pretty-template'
-    Plug 'jason0x43/vim-js-indent'
+    Plug 'prettier/vim-prettier', {
+      \ 'do': 'yarn install',
+      \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue'] }
+    " Plug 'jason0x43/vim-js-indent'
     " Plugin 'isRuslan/vim-es6'
+endif
+
+if count(g:bundle_groups, 'css')
+    Plug 'hail2u/vim-css3-syntax'
+    Plug 'groenewege/vim-less'
 endif
 
 if count(g:bundle_groups, 'web')
     Plug 'mattn/emmet-vim'
-    Plug 'editorconfig/editorconfig-vim'
 endif
 
 if count(g:bundle_groups, 'angularjs')
@@ -76,7 +82,7 @@ endif
 
 if count(g:bundle_groups, 'angular')
     " Plug 'magarcia/vim-angular2-snippets'
-    Plug 'bdauria/angular-cli.vim'
+    " Plug 'bdauria/angular-cli.vim'
 
 endif
 
@@ -84,9 +90,13 @@ if count(g:bundle_groups, 'vue')
     Plug 'posva/vim-vue'
 endif
 
+if count(g:bundle_groups, 'react')
+    Plug 'maxmellon/vim-jsx-pretty'
+endif
+
 if count(g:bundle_groups, 'django')
     Plug 'tweekmonster/django-plus.vim'
-    Plug 'umutcoskun/vim-mule'
+    " Plug 'umutcoskun/vim-mule'
 endif
 
 if count(g:bundle_groups, 'flask')

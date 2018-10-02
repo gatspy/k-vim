@@ -19,11 +19,17 @@ if filereadable(expand("~/.vimrc.main"))
   if file_ext == 'ts'
     let g:bundle_groups=['nodejs', 'angular', 'html', 'css', 'typescript', 'vue', 'web']
 
-  elseif file_ext == 'js' || file_ext == 'html'|| file_ext =='css' || file_ext=='scss' || file_ext=='less'
-    let g:bundle_groups=['javascript', 'nodejs', 'angularjs', 'html', 'css', 'vue', 'web']
+  elseif file_ext == 'vue'
+    let g:bundle_groups=['nodejs', 'javascript', 'html', 'css', 'typescript', 'vue', 'web']
+
+  elseif file_ext == 'jsx'
+    let g:bundle_groups=['nodejs', 'javascript', 'html', 'css', 'typescript', 'react', 'web']
+
+  elseif file_ext == 'js' || file_ext == 'jsx' || file_ext == 'html'|| file_ext =='css' || file_ext=='scss' || file_ext=='less'
+    let g:bundle_groups=['javascript', 'typescript', 'nodejs', 'react', 'vue', 'angular', 'web', 'html', 'css']
 
   elseif file_ext == 'py'
-    let g:bundle_groups=['python', 'tmux', 'web', 'flask']
+    let g:bundle_groups=['python', 'tmux', 'web', 'flask', 'css', 'javascript', 'typescript', 'react']
     " let g:bundle_groups=['python', 'tmux', 'web', 'jinja', 'django']
 
   elseif file_ext == 'ruby'
@@ -33,13 +39,13 @@ if filereadable(expand("~/.vimrc.main"))
     let g:bundle_groups=['java']
 
   elseif file_ext == 'go'
-    let g:bundle_groups=['golang', 'tmux', 'web']
+    let g:bundle_groups=['golang', 'tmux', 'web', 'css', 'javascript', 'typescript', 'react']
 
   elseif file_ext == 'exs' || file_ext == 'ex'
     let g:bundle_groups=['iex', 'tmux', 'web']
 
-  " else
-    " let g:bundle_groups=['nodejs', 'python', 'javascript', 'angularjs', 'angular', 'markdown', 'html', 'css', 'tmux', 'beta', 'golang', 'ruby', 'typescript', 'csharp']
+  else
+    let g:bundle_groups=['web', 'nodejs', 'python', 'javascript', 'angularjs', 'angular', 'iex', 'markdown', 'html', 'css', 'tmux', 'beta', 'golang', 'ruby', 'typescript', 'csharp', 'django', 'vue', 'react', 'java']
   endif
   source ~/.vimrc.main
 
@@ -57,7 +63,8 @@ nnoremap gv `[v`]
 
 if has("gui_running")
     " set guifont=Meslo\ LG\ M\ DZ\ Regular\ for\ Powerline:h13
-    set guifont=MesloLGSDZ\ Nerd\ Font:h13
+    " set guifont=MesloLGSDZ\ Nerd\ Font:h13
+    set guifont=Hack\ Nerd\ Font\ Mono:h13
     if has("gui_gtk2")   "GTK2
         set guifont=Monaco\ 12,Monospace\ 13
     endif
@@ -103,6 +110,9 @@ inoremap <leader>O <ESC>O
 " 0和^互换
 noremap 0 ^
 noremap ^ 0
+
+" 设置' 为 ;重复查找上次 f 命令所查找的字符
+nnoremap ' ;
 
 " move the current line below
 nnoremap <c-down> ddp

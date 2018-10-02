@@ -6,3 +6,4 @@ autoload
 configs
 myconfig.sh
 init.vim
+.netrwhist
