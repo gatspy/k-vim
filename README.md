@@ -47,7 +47,7 @@ k-vim
 1.  i / a              # 当前位置前/后开启编辑模式
 2.  I / A              # 行首 / 行尾开启编辑模式
 3.  o / O              # 下一行/上一行
-4. 
+4.
 ```
 #### 文本对象
 * 命令 + 范围 + 对象
@@ -184,7 +184,7 @@ npm install -g eslint eslint-plugin-standard eslint-plugin-promise eslint-config
 
 ```vim
 <leader>  + s      # 打开或关闭语法错误检查预览窗
-Ctrl      + j      # 移动到预览窗 
+Ctrl      + j      # 移动到预览窗
 j or k CR          # 通过移动键选择错误提示然后回车，可定位到文件中的相应行
 ```
 > [vim插件: syntastic[语法检查]](http://wklken.me/posts/2015/06/07/vim-plugin-syntastic.html)
@@ -324,7 +324,7 @@ Tab              # 完成代码片段插入
 ### 命令模式查看UltiSnips加载的片段
 :execute g:_uspy 'print(UltiSnips_Manager.get_buffer_filetypes())'
 
-### ultisnips(代码片段补全工具) 
+### ultisnips(代码片段补全工具)
 
 ### vim-snippets(常用代码片段)
 ```
@@ -452,6 +452,3 @@ gf                  # 跳转到定义<服务、控制器等>
 vim --startuptime vim.log
 vim -u NONE -N --startuptime /dev/stdout -c quit
 ```
-
-
-
