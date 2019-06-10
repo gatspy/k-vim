@@ -52,6 +52,10 @@ if count(g:bundle_groups, 'typescript')
     Plug 'Quramy/tsuquyomi'
 endif
 
+if count(g:bundle_groups, "golang")
+    Plug 'peterhoeg/vim-qml'
+endif
+
 if count(g:bundle_groups, 'beta')
     UnPlug 'nathanaelkane/vim-indent-guides'
 endif
