@@ -97,6 +97,10 @@ if count(g:bundle_groups, 'golang')
     " ============================================================================
     " Vim-go {{{
     " ============================================================================
+    " " let g:go_metalinter_command = "golangci-lint"
+    " let g:go_metalinter_enabled = ['vet', 'errcheck']
+    " let g:go_metalinter_disabled = ['golint']
+    " let g:syntastic_go_checkers = ['govet']
     let g:go_fmt_fail_silently = 0
     let g:go_fmt_command = "goimports"
     let g:go_autodetect_gopath = 1
