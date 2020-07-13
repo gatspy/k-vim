@@ -144,6 +144,8 @@ vnoremap <Leader>cw y:%s/<C-r>"/<C-r>"
 " Replace tabs with spaces.
 nnoremap <Leader>rts :%s/   /    /g<CR>
 
+noremap <leader><leader>p "*p
+
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 cmap w!! w !sudo tee > /dev/null %
 
